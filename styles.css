@@ -1,0 +1,115 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:@400;@500;@600;wght@700&display=swap');
+
+html, body {
+  width: 100%;
+  height: 100%;
+}
+ 
+#header {
+    height: 10%;
+}
+
+#logo {
+  float: left;
+  margin-left: 5px;
+  width: 45px;
+  height: 45px;
+  object-fit: contain;
+}
+
+#content {
+  height: 50%;
+}
+
+#primary {
+  float: left;
+  width: 50%;
+  height: 100%;
+}
+
+.B {
+  font-family: 'Poppins', sans-serif;
+  font-size: 3vw;
+  font-weight: bold;
+  position: relative;
+  left: 40%;
+  top: 35%;
+  object-fit: contain;
+}
+
+.G {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.4vw;
+  position: relative;
+  left: 40%;
+  top: 30%;
+}
+
+#secondary {
+  float: left;
+  width: 50%;
+  height: 100%;
+}
+
+h2 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 2vw;
+  position: absolute;
+  top: 22%;
+}
+
+.input-boxes {
+  position: absolute;
+  top: 30%;
+  width: 40%;
+  height: 25%;
+  margin-top: 20px;
+}
+
+.input-box {
+  border-color: transparent;
+  margin-top: 15px;
+}
+
+input{
+  outline: none;
+  border-top-style: none;
+  border-right-style: none;
+  border-left-style: none;
+  border-bottom-style: groove;
+  width: 60%;
+}
+
+.checkBox {
+  position: absolute;
+  margin-top: 15px;
+}
+
+label {
+  position: absolute;
+  margin-left: 40px;
+  margin-top: 15px;
+}
+
+.btnLogin {
+  position: absolute;
+  left: 70%;
+  top: 50%;
+}
+
+#footer {
+  clear: both;
+  height: 75%;
+}
+
+#footerImage {
+  height: 40%;
+  width: 50%;
+  position: absolute;
+  left: 5%;
+  top: 50%;
+}
+
+.container {
+  margin: 0 auto;
+}
