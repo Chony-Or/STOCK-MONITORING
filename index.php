@@ -24,8 +24,8 @@
 		
 			<div class="content-wrapper">
 			
-				<a href=""> <img src="images/InitialLogo.png"> </a>
-				<a href="" class="brand"> Laconsay Beverages </a>
+				<a href="login.php"> <img src="images/InitialLogo.png"> </a>
+				<a href="login.php" class="brand"> Laconsay Beverages </a>
 			
 			</div>
 		
@@ -39,7 +39,7 @@
 				<h1> Beverages </h1>
 				<h2> Good Sip for Good Moments </h2>
 				
-				<a href="Admin_Login.html"> <img src="images/Button.png"> </a>
+				<a href="login.php"> <img src="images/Button.png"> </a>
 			
 			</div>
 		
