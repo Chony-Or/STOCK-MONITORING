@@ -6,6 +6,7 @@
 <?php
 	$today = date('Y-m-d');
 	$year = date('Y');
+	
 	if(isset($_GET['year']))
 	{
 		$year = $_GET['year'];
@@ -29,12 +30,12 @@
 			<!-- Content Header (Page header) -->
 			<section class="content-header">
 			
-				<h1>
-					Dashboard
-				</h1>
+				<h1><b>
+					DASHBOARD
+				</h1></b>
 			
 				<ol class="breadcrumb">
-					<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+					<li><a href="#"><i class="fa fa-home"></i> Home</a></li>
 					<li class="active">Dashboard</li>
 				</ol>
 				
@@ -220,6 +221,7 @@
 								<h3 class="box-title">Monthly Sales Report</h3>
 								
 								<div class="box-tools pull-right">
+								
 									<form class="form-inline">
 								
 										<div class="form-group">
@@ -388,6 +390,7 @@
 			});
 		});
 	</script>
+	
 </body>
 
 </html>
