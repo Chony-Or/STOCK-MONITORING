@@ -90,7 +90,7 @@
                   <th>Photo</th>
                   <th>Description</th>
                   <th>Price</th>
-                  <th>Views Today</th>
+                  <th>Stocks</th>
                   <th>Tools</th>
                 </thead>
                 <tbody>

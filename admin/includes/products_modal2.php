@@ -1,3 +1,14 @@
+<style>
+
+.edit_stocks{
+  margin-left: 50px;
+  rows:10;
+  cols:30;
+}
+
+
+</style>
+
 <!-- Delete -->
 <div class="modal fade" id="delete">
     <div class="modal-dialog">
@@ -51,13 +62,30 @@
                     </select>
                   </div>
                 </div>
+
+
+                
+
+
+
                 <div class="form-group">
                   <label for="edit_price" class="col-sm-1 control-label">Price</label>
 
                   <div class="col-sm-5">
                     <input type="text" class="form-control" id="edit_price" name="price">
                   </div>
+                  <label for="edit_category" class="col-sm-1 control-label">Available Stocks</label>
+
+                  <div class="col-sm-5">
+                    <label for="edit_category" class="col-sm-1 control-label">123</label>
+                    <input type="text" class="edit_stocks"  id="edit_count" name="count">
+
+                  </div>
+
                 </div>
+
+                  
+                  
                 <p><b>Description</b></p>
                 <div class="form-group">
                   <div class="col-sm-12">
@@ -66,6 +94,7 @@
                   
                 </div>
             </div>
+            
             <div class="modal-footer">
               <button type="button" class="btn btn-default btn-flat pull-left" data-dismiss="modal"><i class="fa fa-close"></i> Close</button>
               <button type="submit" class="btn btn-success btn-flat" name="edit"><i class="fa fa-check-square-o"></i> Update</button>
