@@ -119,7 +119,7 @@
 							<div class="inner">
 							
 								<?php
-									$stmt = $conn->prepare("SELECT , COUNT() AS numrows FROM products");
+									$stmt = $conn->prepare("SELECT *, COUNT(*) AS numrows FROM products");
 									$stmt->execute();
 									$prow =  $stmt->fetch();
 
@@ -149,7 +149,7 @@
 							<div class="inner">
 								
 								<?php
-									$stmt = $conn->prepare("SELECT , COUNT() AS numrows FROM users");
+									$stmt = $conn->prepare("SELECT *, COUNT(*) AS numrows FROM users");
 									$stmt->execute();
 									$urow =  $stmt->fetch();
 
@@ -218,8 +218,35 @@
 						<div class="box">
 							
 							<div class="box-header with-border">
-								<h3 class="text-center">Product Stocks</h3>
+								<h3 class="box-title">Monthly Sales Report</h3>
 								
+								<div class="box-tools pull-right">
+								
+									<form class="form-inline">
+								
+										<div class="form-group">
+										
+											<label>Select Year: </label>
+										
+											<select class="form-control input-sm" id="select_year">
+											
+												<?php
+													for($i=2015; $i<=2065; $i++)
+													{
+														$selected = ($i==$year)?'selected':'';
+														echo "
+														<option value='".$i."' ".$selected.">".$i."</option>
+														";
+													}
+												?>
+											
+											</select>
+									
+										</div>
+									
+									</form>
+              
+								</div>
 							
 							</div>
 						
@@ -250,12 +277,13 @@
 	</div>
 	<!-- ./wrapper -->
 
+	<!--Cooment-->
 	<!-- Chart Data -->
 	<?php
 		$months = array();
 		$sales = array();
 		
-		for( $m = 1; $m <= 10; $m++ )
+		for( $m = 1; $m <= 12; $m++ )
 		{
 			try
 			{
@@ -282,7 +310,6 @@
 			array_push($months, $month);
 		}
 		$months = array("Coke", "Mountain Dew", "RC", "Lemmon Soda","Orange Soda", "Pepsi", "7up","Sprite","Royal","Cobra");
-
 		$months = json_encode($months);
 		$sales = json_encode($sales);
 	?>
@@ -303,9 +330,9 @@
 				datasets:
 				[
 					{
-						label               : 'STOCKS',
+						label               : 'SALES',
 						fillColor           : 'rgba(60,141,188,0.9)',
-						strokeColor         : 'rgba(60,141,188,0.😎',
+						strokeColor         : 'rgba(60,141,188,0.8)',
 						pointColor          : '#3b8bba',
 						pointStrokeColor    : 'rgba(60,141,188,1)',
 						pointHighlightFill  : '#fff',
