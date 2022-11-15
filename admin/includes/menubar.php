@@ -52,6 +52,7 @@
 			</li>
 
 			<li><a href="weekly_sales.php"><i class="fa fa-exchange"></i> <span>Weekly Sales</span></a></li>
+			<li><a href="weekly_sales.php"><i class="fa fa-exchange"></i> <span>Try</span></a></li>
 
 			<!--<li class="header">MANAGE</li>-->
 			<li><a href="users.php"><i class="fa fa-users"></i> <span>Users</span></a></li>
