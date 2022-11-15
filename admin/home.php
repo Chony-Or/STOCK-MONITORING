@@ -277,6 +277,7 @@
 	</div>
 	<!-- ./wrapper -->
 
+	<!--Cooment-->
 	<!-- Chart Data -->
 	<?php
 		$months = array();
