@@ -4,29 +4,22 @@
 
 	if(isset($_POST['login']))
 	{
-		$email = $_POST['email'];
-		$password = $_POST['password'];
+		$username = $_POST['type_usernmae'];
+		$password = $_POST['type_password'];
 
 		try
 		{
-			$stmt = $conn->prepare("SELECT *, COUNT(*) AS numrows FROM users WHERE email = :email");
-			$stmt->execute(['email'=>$email]);
+			$stmt = $conn->prepare("SELECT * FROM admin_tbl WHERE admin_username=:admin_username");
+			$stmt->execute(['admin_username'=>$username]);
 			$row = $stmt->fetch();
 			
 			if($row['numrows'] > 0)
 			{
-				if($row['status'])
+				if($username==$row["admin_username"])
 				{
-					if(password_verify($password, $row['password']))
+					if(password_verify($password, $row['admin_password']))
 					{
-						if($row['type'])
-						{
-							$_SESSION['admin'] = $row['id'];
-						}
-						else
-						{
-							$_SESSION['user'] = $row['id'];
-						}
+						$_SESSION['admin_login'] = $row['admin_login'];
 					}
 					else
 					{
@@ -40,7 +33,7 @@
 			}
 			else
 			{
-				$_SESSION['error'] = 'Email not found';
+				$_SESSION['error'] = 'Username not Found';
 			}
 		}
 		catch(PDOException $e)

@@ -1,29 +1,12 @@
-<!-- Admin session -->
-
 <?php
-	include 'includes/connection.php'; 
-	session_start();
 
-	if(isset($_SESSION['admin']))
-	{
-		header('location: admin/home.php');
-	}
+include 'includes/connection.php';
 
-	if(isset($_SESSION['user']))
-	{
-		$conn = $pdo->open();
+session_start();
 
-		try
-		{
-			$stmt = $conn->prepare("SELECT * FROM users WHERE id=:id");
-			$stmt->execute(['id'=>$_SESSION['user']]);
-			$user = $stmt->fetch();
-		}
-		catch(PDOException $e)
-		{
-			echo "There is some problem in connection: " . $e->getMessage();
-		}
+if(isset($_SESSION["admin_login"]))	//check condition user login not direct back to index.php page
+{
+	header("location: admin/dashboard.php");
+}
 
-		$pdo->close();
-	}
 ?>
