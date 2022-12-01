@@ -24,7 +24,7 @@
             </li>
 
             <li>
-                <a href="index.php?page=user">
+                <a href="user.php">
                     <i class='bx bx-user'></i>
                     <span class="links_name"> User </span>
                 </a>
@@ -32,21 +32,21 @@
             </li>
 
             <li>
-                <a href="index.php?page=order_status">
+                <a href="index.php?page=order/order_status">
                     <i class='bx bx-cart-alt'></i>
                     <span class="links_name"> Order Status </span>
                 </a>
                 <span class="tooltip"> Order Status </span>
             </li>
             <li>
-                <a href="index.php?page=sales_history">
+                <a href="index.php?page=sales/sales_history">
                     <i class='bx bx-history'></i>
                     <span class="links_name"> Sales History </span>
                 </a>
                 <span class="tooltip"> Sales History </span>
             </li>
             <li>
-                <a href="index.php?page=inventory">
+                <a href="index.php?page=inventory/inventory">
                     <i class='bx bx-package'></i>
                     <span class="links_name"> Inventory </span>
                 </a>
@@ -57,7 +57,9 @@
                 <div class="profile-details">
                     <img src="../images/profile.jpg" alt="profileImg">
                     <div class="name_job">
-                        <div class="name"><?php echo $admin['admin_username']; ?></div>
+                        <div class="name">
+                            <?php echo $admin['admin_username']; ?>
+                        </div>
                         <div class="job">Administrator</div>
                     </div>
                 </div>
@@ -74,7 +76,7 @@
 
         </ul>
     </div>
-
+    
     <script src="js/sidebar.js"></script>
 
 </body>

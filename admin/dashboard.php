@@ -5,7 +5,7 @@
 <body>
 
     <section class="home-section">
-
+        
         <div class="text">Dashboard</div>
 
         <div class="container-fluid" style="background-color: white;">

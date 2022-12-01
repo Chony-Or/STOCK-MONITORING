@@ -116,8 +116,6 @@
 
 								</div>
 
-								<a href="register.php"> Register Here </a>
-
 								<div class="btn-right">
 
 									<button type="submit" name="btn_login">
