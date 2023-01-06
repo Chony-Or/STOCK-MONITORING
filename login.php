@@ -114,7 +114,7 @@
 
 									</label>
 
-                                    <label class="control control--checkbox mb-0"><span class="caption"> <a href="register.php"> Register Here </a> </span>
+                                    <label class="control control--checkbox mb-0"><span class="caption"> </span>
 									</label>
 
 								</div>

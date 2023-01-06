@@ -1,0 +1,78 @@
+DASHBOARD:
+Overview = /
+Pending Order Table = /
+View = x
+Accept = x
+Cancel = x
+Graph = x
+
+Order Status
+Table = x
+Add = x
+Edit = x
+Delete = x
+
+
+ADMIN:
+Add = /
+Edit = /
+Delete = /
+
+REGULAR
+Add = /
+Edit = /
+Delete = /
+
+GUEST
+Add = /
+Edit = /
+Delete = /
+
+ORDER STATUS
+Selection Button if Regular or Guest
+Regular Modal automatic discount
+Guest no promos
+
+SALES HISTORY
+Sales History = x
+
+CATEGORY
+Add = /
+Edit = /
+Delete = /
+
+PRODUCT
+Add = Pending
+Edit = Pending
+Delete = Pending
+
+Overall Design Fixing
+Overall Code Fixing
+
+
+
+
+<?php
+    $conn = $pdo->open();
+
+    try {
+        $stmt = $conn->prepare("SELECT *, pendingorder_tbl.pendingOrder_id AS productid FROM pendingorder_tbl LEFT JOIN customer_tbl ON customer_tbl.customer_id=pendingorder_tbl.customer_id ORDER BY date_created DESC");
+        $stmt->execute();
+        foreach ($stmt as $row) {
+            $stmt = $conn->prepare("SELECT * FROM pendingorder_tbl LEFT JOIN product_tbl ON product_tbl.product_id=pendingorder_tbl.product_id WHERE pendingorder_Tbl.pendingOrder_id=:id");
+            $stmt->execute(['id' => $row['productid']]);
+            $total = 0;
+            foreach ($stmt as $details) {
+                $subtotal = $details['product_price'] * $details['quantity'];
+                $total += $subtotal;
+            }
+        }
+    } catch (PDOException $e) {
+        echo $e->getMessage();
+    }
+
+    $pdo->close();
+    ?>
+
+
+SELECT *, pendingorder_tbl.pendingOrder_id AS pending FROM pendingorder_tbl LEFT JOIN customer_tbl ON customer_tbl.customer_id=pendingorder_tbl.customer_id ORDER BY pendingorder_id DESC

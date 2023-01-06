@@ -1,84 +1,85 @@
-<?php include 'header.php'; ?>
 <link rel="stylesheet" href="css/sidebar.css">
 
-<body>
+<!-- partial:index.partial.html -->
+<div class='dashboard'>
 
-    <div class="sidebar">
+    <div class="dashboard-nav">
 
-        <div class="logo-details">
+        <header>
+            <a href="index.php" class="menu-toggle">
+                <i class='bx bx-menu'> </i>
+            </a>
+            <a href="index.php" class="brand-logo">
+                <img class="p_img" src="../images/InitialLogo.ico" alt="Logo Image">
+                <span>LA BVRGS</span>
+            </a>
+        </header>
 
-            <img class="icon" src="../images/InitialLogo.ico">
-            <div class="logo_name" style="font-size: 20px;"> LA BVRGS </div>
-            <i class='bx bx-menu' id="btn"></i>
+        <nav class="dashboard-nav-list">
 
-        </div>
 
-        <ul class="nav-list">
-
-            <li>
-                <a href="index.php">
-                    <i class='bx bxs-dashboard'></i>
-                    <span class="links_name"> Dashboard </span>
-                </a>
-                <span class="tooltip"> Dashboard </span>
-            </li>
-
-            <li>
-                <a href="user.php">
-                    <i class='bx bx-user'></i>
-                    <span class="links_name"> User </span>
-                </a>
-                <span class="tooltip"> User </span>
-            </li>
-
-            <li>
-                <a href="index.php?page=order/order_status">
-                    <i class='bx bx-cart-alt'></i>
-                    <span class="links_name"> Order Status </span>
-                </a>
-                <span class="tooltip"> Order Status </span>
-            </li>
-            <li>
-                <a href="index.php?page=sales/sales_history">
-                    <i class='bx bx-history'></i>
-                    <span class="links_name"> Sales History </span>
-                </a>
-                <span class="tooltip"> Sales History </span>
-            </li>
-            <li>
-                <a href="index.php?page=inventory/inventory">
-                    <i class='bx bx-package'></i>
-                    <span class="links_name"> Inventory </span>
-                </a>
-                <span class="tooltip"> Inventory </span>
-            </li>
-
-            <li class="profile">
+            <div class="profile">
                 <div class="profile-details">
-                    <img src="../images/profile.jpg" alt="profileImg">
+                    <img class="p_img" src="../images/profile.jpg" alt="profileImg">
                     <div class="name_job">
-                        <div class="name">
-                            <?php echo $admin['admin_username']; ?>
+                        <div class="name"> <?php echo $admin['admin_username']; ?>
                         </div>
                         <div class="job">Administrator</div>
                     </div>
                 </div>
-                <i class='bx bxs-user-pin' id="log_out"></i>
-            </li>
+                <!-- <i class='bx bxs-user-pin' id="log_out"></i> -->
+            </div>
 
-            <li>
-                <a href="../logout.php">
-                    <i class='bx bx-log-out-circle'></i>
-                    <span class="links_name"> Logout </span>
+
+
+            <a href="index.php" class="dashboard-nav-item active">
+                <i class='bx bxs-dashboard'></i>
+                Dashboard
+            </a>
+
+            <a href="user_admin.php" class="dashboard-nav-item">
+                <i class='bx bx-user'></i>
+                Users
+            </a>
+
+            <a href="order.php" class="dashboard-nav-item">
+                <i class='bx bx-cart-alt'></i>
+                Order Status
+            </a>
+
+            <div class='dashboard-nav-dropdown'>
+                <a href="#!" class="dashboard-nav-item dashboard-nav-dropdown-toggle">
+                    <i class='bx bx-history'></i>
+                    Sales History
                 </a>
-                <span class="tooltip"> Logout </span>
-            </li>
 
-        </ul>
+                <div class='dashboard-nav-dropdown-menu'>
+                    <a href="sales.php" class="dashboard-nav-dropdown-item">Sales</a>
+                    <a href="cancel.php" class="dashboard-nav-dropdown-item">Cancelled</a>
+                </div>
+            </div>
+
+            <div class='dashboard-nav-dropdown'>
+                <a href="#!" class="dashboard-nav-item dashboard-nav-dropdown-toggle">
+                    <i class='bx bx-package'></i>
+                    Inventory
+                </a>
+
+                <div class='dashboard-nav-dropdown-menu'>
+                    <a href="category.php" class="dashboard-nav-dropdown-item">Category</a>
+                    <a href="index.php?page=product" class="dashboard-nav-dropdown-item">Product</a>
+                </div>
+            </div>
+
+            <div class="nav-item-divider"></div>
+            <a href="../logout.php" class="dashboard-nav-item">
+                <i class='bx bx-log-out-circle'></i>
+                Logout
+            </a>
+        </nav>
+
     </div>
-    
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/js/bootstrap.min.js'></script>
     <script src="js/sidebar.js"></script>
-
-</body>
-
-</html>

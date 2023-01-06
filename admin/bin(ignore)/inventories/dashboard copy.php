@@ -13,7 +13,7 @@ $page = isset($_GET['page']) && is_numeric($_GET['page']) ? $_GET['page'] : 1;
 // Number of results to show on each page.
 $num_results_on_page = 5;
 
-if ($stmt = $mysqli->prepare('SELECT *, pendingorder_tbl.pendingOrder_id AS pending FROM pendingorder_tbl LEFT JOIN customer_tbl ON customer_tbl.customer_id=pendingorder_tbl.customer_id GROUP BY order_number ORDER BY pendingorder_id DESC LIMIT ?,?')) {
+if ($stmt = $mysqli->prepare('SELECT * FROM pendingorder_tbl ORDER BY pendingOrder_id DESC LIMIT ?,?')) {
     // Calculate the page to get the results we need from our table.
     $calc_page = ($page - 1) * $num_results_on_page;
     $stmt->bind_param('ii', $calc_page, $num_results_on_page);
@@ -108,12 +108,12 @@ if ($stmt = $mysqli->prepare('SELECT *, pendingorder_tbl.pendingOrder_id AS pend
 
                                 <?php while ($row = $result->fetch_assoc()) : ?>
                                     <tr>
-                                        <td data-label="Order No."> <?php echo $row['order_number']; ?> </td>
+                                        <td data-label="Order No."> <?php echo $row['pendingOrder_id']; ?> </td>
                                         <td data-label="Name"> <?php echo $row['customer_name']; ?> </td>
                                         <td data-label="Time"> <?php echo $row['date_created']; ?> </td>
                                         <td data-label="View">
 
-                                            <a href="#exampleModal" class="btn btn-primary btn-sm" data-bs-toggle="modal">
+                                            <a href="#edit_<?php echo $row['pendingOrder_id']; ?>" class="btn btn-primary btn-sm" data-bs-toggle="modal">
                                                 <span> <i class='bx bx-search-alt'></i>
                                             </a>
 
@@ -132,9 +132,6 @@ if ($stmt = $mysqli->prepare('SELECT *, pendingorder_tbl.pendingOrder_id AS pend
                                         </td>
 
                                     </tr>
-
-                                    <!-- Include Modal php
-                                    <php include('view_modal.php'); ?> -->
                             </tbody>
                         <?php endwhile; ?>
                         </table>
@@ -192,48 +189,6 @@ if ($stmt = $mysqli->prepare('SELECT *, pendingorder_tbl.pendingOrder_id AS pend
 
         </div>
         <!-- partial -->
-
-
-        <!-- Modal -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="exampleModalLabel"> Pending Orders </h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-
-                        <div>
-
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th scope="col">Product Name</th>
-                                        <th scope="col">Quantity</th>
-                                        <th scope="col">Amount</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td data-label="Product Name">Sample</td>
-                                        <td data-label="Quantity">Sample</td>
-                                        <td data-label="Amount">Sample</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-
-                        </div>
-
-
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 

@@ -34,7 +34,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 p {
-    margin-top: 1rem;
+    margin-top: 0;
     margin-bottom: 1rem;
 }
 
@@ -359,7 +359,7 @@ h1, .h1 {
 
 .dashboard-toolbar {
     min-height: 62px;
-    background-image: url(../../images/BrandName.png);
+    background-image: url(../images/BrandName.png);
     border-bottom: 1px solid #dfdfdf;
 	background-repeat: no-repeat;
     display: -webkit-box;

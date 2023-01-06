@@ -1,22 +1,19 @@
-let sidebar = document.querySelector(".sidebar");
-let closeBtn = document.querySelector("#btn");
-let searchBtn = document.querySelector(".bx-search");
-
-closeBtn.addEventListener("click", () => {
-    sidebar.classList.toggle("open");
-    menuBtnChange();//calling the function(optional)
+const mobileScreen = window.matchMedia("(max-width: 990px )");
+$(document).ready(function () {
+    $(".dashboard-nav-dropdown-toggle").click(function () {
+        $(this).closest(".dashboard-nav-dropdown")
+            .toggleClass("show")
+            .find(".dashboard-nav-dropdown")
+            .removeClass("show");
+        $(this).parent()
+            .siblings()
+            .removeClass("show");
+    });
+    $(".menu-toggle").click(function () {
+        if (mobileScreen.matches) {
+            $(".dashboard-nav").toggleClass("mobile-show");
+        } else {
+            $(".dashboard").toggleClass("dashboard-compact");
+        }
+    });
 });
-
-searchBtn.addEventListener("click", () => { // Sidebar open when you click on the search iocn
-    sidebar.classList.toggle("open");
-    menuBtnChange(); //calling the function(optional)
-});
-
-// following are the code to change sidebar button(optional)
-function menuBtnChange() {
-    if (sidebar.classList.contains("open")) {
-        closeBtn.classList.replace("bx-menu", "bx-menu-alt-right");//replacing the iocns class
-    } else {
-        closeBtn.classList.replace("bx-menu-alt-right", "bx-menu");//replacing the iocns class
-    }
-}

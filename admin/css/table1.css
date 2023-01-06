@@ -1,0 +1,165 @@
+table {
+  border: 1px solid white;
+  border-collapse: collapse;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  table-layout: fixed;
+}
+
+table tr {
+  border: 1px solid white;
+  padding: .35em;
+}
+
+table th,
+table td {
+  padding: .625em;
+  text-align: center;
+}
+
+table th {
+  font-size: .85em;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+
+@media screen and (max-width: 600px) {
+  table {
+    border: 0;
+  }
+  
+  table thead {
+    border: none;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+  }
+  
+  table tr {
+    border-bottom: 3px solid #ddd;
+    display: block;
+    margin-bottom: .625em;
+  }
+  
+  table td {
+    border-bottom: 1px solid #ddd;
+    display: block;
+    font-size: .8em;
+    text-align: right;
+  }
+  
+  table td::before {
+    /*
+    * aria-label has no advantage, it won't be read inside a table
+    content: attr(aria-label);
+    */
+    content: attr(data-label);
+    float: left;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+  
+  table td:last-child {
+    border-bottom: 0;
+  }
+}
+
+
+
+
+/* Pagination */
+.create-contact {
+  display: inline-block;
+  text-decoration: none;
+  background-color: #38b673;
+  font-weight: bold;
+  font-size: 14px;
+  color: #FFFFFF;
+  padding: 10px 15px;
+  margin: 15px 0;
+}
+.create-contact:hover {
+  background-color: #32a367;
+}
+.pagination {
+  display: flex;
+  justify-content: flex-end;
+}
+.pagination a {
+  display: inline-block;
+  text-decoration: none;
+  background-color: #a5a7a9;
+  font-weight: bold;
+  color: #FFFFFF;
+  padding: 5px 10px;
+  margin: 15px 0 15px 5px;
+}
+.pagination a:hover {
+  background-color: #999b9d;
+}
+
+.read table tbody tr td.actions {
+  padding: 8px;
+  text-align: right;
+}
+.read table tbody tr td.actions .edit, .read table tbody tr td.actions .trash {
+  display: inline-flex;
+  text-align: right;
+  text-decoration: none;
+  color: #FFFFFF;
+  padding: 10px 12px;
+}
+.read table tbody tr td.actions .trash {
+  background-color: #b73737;
+}
+.read table tbody tr td.actions .trash:hover {
+  background-color: #a33131;
+}
+.read table tbody tr td.actions .edit {
+  background-color: #37afb7;
+}
+.read table tbody tr td.actions .edit:hover {
+  background-color: #319ca3;
+}
+
+
+/*.pagination {
+  list-style-type: none;
+  padding: 10px 0;
+  display: inline-flex;
+  justify-content: space-between;
+  box-sizing: border-box;
+}
+.pagination li {
+  box-sizing: border-box;
+  padding-right: 10px;
+}
+.pagination li a {
+  box-sizing: border-box;
+  background-color: #e2e6e6;
+  padding: 8px;
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: bold;
+  color: #616872;
+  border-radius: 4px;
+}
+.pagination li a:hover {
+  background-color: #d4dada;
+}
+.pagination .next a, .pagination .prev a {
+  text-transform: uppercase;
+  font-size: 12px;
+}
+.pagination .currentpage a {
+  background-color: #518acb;
+  color: #fff;
+}
+.pagination .currentpage a:hover {
+  background-color: #518acb;
+}*/
