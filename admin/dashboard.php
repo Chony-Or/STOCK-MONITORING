@@ -59,11 +59,27 @@ if ($stmt = $mysqli->prepare('SELECT *, pendingorder_tbl.pendingOrder_id AS pend
                                     <label class="list-group-item">
                                         <i class='bx bx-cart-add'></i>
                                         No. Purchase
+
+                                        <?php
+                                        $stmt = $conn->prepare("SELECT *, COUNT(*) AS numrows FROM transachistory_tbl");
+                                        $stmt->execute();
+                                        $urow =  $stmt->fetch();
+
+                                        echo "<h3>" . $urow['numrows'] . "</h3>";
+                                        ?>
                                     </label>
 
                                     <label class="list-group-item">
                                         <i class='bx bx-purchase-tag-alt'></i>
-                                        Total Cost
+                                        Total Products
+
+                                        <?php
+                                        $stmt = $conn->prepare("SELECT *, COUNT(*) AS numrows FROM product_tbl");
+                                        $stmt->execute();
+                                        $urow =  $stmt->fetch();
+
+                                        echo "<h3>" . $urow['numrows'] . "</h3>";
+                                        ?>
                                     </label>
 
                                 </div>
@@ -76,12 +92,28 @@ if ($stmt = $mysqli->prepare('SELECT *, pendingorder_tbl.pendingOrder_id AS pend
 
                                     <label class="list-group-item">
                                         <i class='bx bxs-message-square-x'></i>
-                                        Cancel Order
+                                        Total Users
+
+                                        <?php
+                                        $stmt = $conn->prepare("SELECT *, COUNT(*) AS numrows FROM customer_tbl");
+                                        $stmt->execute();
+                                        $urow =  $stmt->fetch();
+
+                                        echo "<h3>" . $urow['numrows'] . "</h3>";
+                                        ?>
                                     </label>
 
                                     <label class="list-group-item">
                                         <i class='bx bx-arrow-back'></i>
-                                        Return
+                                        Pending Orders
+
+                                        <?php
+                                        $stmt = $conn->prepare("SELECT *, COUNT(*) AS numrows FROM pendingorder_tbl");
+                                        $stmt->execute();
+                                        $urow =  $stmt->fetch();
+
+                                        echo "<h3>" . $urow['numrows'] . "</h3>";
+                                        ?>
                                     </label>
 
                                 </div>
@@ -113,15 +145,14 @@ if ($stmt = $mysqli->prepare('SELECT *, pendingorder_tbl.pendingOrder_id AS pend
                                         <td data-label="Time"> <?php echo $row['date_created']; ?> </td>
                                         <td data-label="View">
 
-                                            <a href="#exampleModal" class="btn btn-primary btn-sm" data-bs-toggle="modal">
+                                            <a href="index.php?page=view_page&id=<?php echo $row['order_number'] ?>" class="btn btn-primary btn-sm">
                                                 <span> <i class='bx bx-search-alt'></i>
-                                            </a>
 
                                         </td>
 
                                         <td data-label="Accept/Cancel">
 
-                                            <a href="#edit_<?php echo $row['pendingOrder_id']; ?>" class="btn btn-success btn-sm" data-bs-toggle="modal">
+                                            <a href="index.php?page=order_accept&id=<?php echo $row['order_number'] ?>" class="btn btn-success btn-sm" data-bs-toggle="modal">
                                                 <span> <i class='bx bx-check'></i>
                                             </a>
 
@@ -139,46 +170,10 @@ if ($stmt = $mysqli->prepare('SELECT *, pendingorder_tbl.pendingOrder_id AS pend
                         <?php endwhile; ?>
                         </table>
 
-                        <?php if (ceil($total_pages / $num_results_on_page) > 0) : ?>
-                            <ul class="pagination">
-                                <?php if ($page > 1) : ?>
-                                    <li class="prev"><a href="user_regular.php?page=<?php echo $page - 1 ?>">Prev</a></li>
-                                <?php endif; ?>
-
-                                <?php if ($page > 3) : ?>
-                                    <li class="start"><a href="user_regular.php?page=1">1</a></li>
-                                    <li class="dots">...</li>
-                                <?php endif; ?>
-
-                                <?php if ($page - 2 > 0) : ?><li class="page"><a href="user_regular.php?page=<?php echo $page - 2 ?>"><?php echo $page - 2 ?></a></li><?php endif; ?>
-                                <?php if ($page - 1 > 0) : ?><li class="page"><a href="user_regular.php?page=<?php echo $page - 1 ?>"><?php echo $page - 1 ?></a></li><?php endif; ?>
-
-                                <li class="currentpage"><a href="user_regular.php?page=<?php echo $page ?>"><?php echo $page ?></a></li>
-
-                                <?php if ($page + 1 < ceil($total_pages / $num_results_on_page) + 1) : ?><li class="page"><a href="user_regular.php?page=<?php echo $page + 1 ?>"><?php echo $page + 1 ?></a></li><?php endif; ?>
-                                <?php if ($page + 2 < ceil($total_pages / $num_results_on_page) + 1) : ?><li class="page"><a href="user_regular.php?page=<?php echo $page + 2 ?>"><?php echo $page + 2 ?></a></li><?php endif; ?>
-
-                                <?php if ($page < ceil($total_pages / $num_results_on_page) - 2) : ?>
-                                    <li class="dots">...</li>
-                                    <li class="end"><a href="user_regular.php?page=<?php echo ceil($total_pages / $num_results_on_page) ?>"><?php echo ceil($total_pages / $num_results_on_page) ?></a></li>
-                                <?php endif; ?>
-
-                                <?php if ($page < ceil($total_pages / $num_results_on_page)) : ?>
-                                    <li class="next"><a href="user_regular.php?page=<?php echo $page + 1 ?>">Next</a></li>
-                                <?php endif; ?>
-                            </ul>
-                        <?php endif; ?>
-
                     <?php
-                    $stmt->close();
+                    $pdo->close();
                 }
                     ?>
-
-
-                    </div>
-
-                    <div class="container-fluid" style="background-color: white;">
-                        <h5> Graph </h5>
 
 
                     </div>
@@ -192,47 +187,6 @@ if ($stmt = $mysqli->prepare('SELECT *, pendingorder_tbl.pendingOrder_id AS pend
 
         </div>
         <!-- partial -->
-
-
-        <!-- Modal -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="exampleModalLabel"> Pending Orders </h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-
-                        <div>
-
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th scope="col">Product Name</th>
-                                        <th scope="col">Quantity</th>
-                                        <th scope="col">Amount</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td data-label="Product Name">Sample</td>
-                                        <td data-label="Quantity">Sample</td>
-                                        <td data-label="Amount">Sample</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-
-                        </div>
-
-
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    </div>
-                </div>
-            </div>
-        </div>
 
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
