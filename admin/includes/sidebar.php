@@ -47,7 +47,7 @@
                 Order Status
             </a>
 
-            <a href=sales.php" class="dashboard-nav-item">
+            <a href="sales.php" class="dashboard-nav-item">
             <i class='bx bx-history'></i>
                 Sales History
             </a>

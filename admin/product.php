@@ -28,7 +28,7 @@ $total_products = $conn->query('SELECT * FROM product_tbl')->rowCount();
     .inv_img {
         max-width: 100%;
         height: 200px;
-        object-fit: cover;
+        object-fit: contain;
     }
 </style>
 
