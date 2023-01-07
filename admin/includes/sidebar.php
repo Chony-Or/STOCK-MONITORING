@@ -47,17 +47,10 @@
                 Order Status
             </a>
 
-            <div class='dashboard-nav-dropdown'>
-                <a href="#!" class="dashboard-nav-item dashboard-nav-dropdown-toggle">
-                    <i class='bx bx-history'></i>
-                    Sales History
-                </a>
-
-                <div class='dashboard-nav-dropdown-menu'>
-                    <a href="sales.php" class="dashboard-nav-dropdown-item">Sales</a>
-                    <a href="cancel.php" class="dashboard-nav-dropdown-item">Cancelled</a>
-                </div>
-            </div>
+            <a href=sales.php" class="dashboard-nav-item">
+            <i class='bx bx-history'></i>
+                Sales History
+            </a>
 
             <div class='dashboard-nav-dropdown'>
                 <a href="#!" class="dashboard-nav-item dashboard-nav-dropdown-toggle">
