@@ -19,7 +19,7 @@ main .recentlyadded .products .product, main .products .products-wrapper .produc
 	display: block;
 	overflow: hidden;
 	text-decoration: none;
-	width: 25%;
+	width: 33.33%;
 	padding-bottom: 60px;
 }
 main .recentlyadded .products .product img, main .products .products-wrapper .product img {

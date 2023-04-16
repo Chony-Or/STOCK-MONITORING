@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 
+    <!-- HEAD -->
 	<head>
 	
 		<!-- Responsiveness -->
@@ -15,7 +16,7 @@
 		
 		<title> Laconsay Beverages </title>
 		
-	</head>
+	</head> <!-- END OF HEADER -->
 	
 	<body>
 		

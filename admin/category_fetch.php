@@ -1,4 +1,5 @@
 <?php
+
 	include 'includes/session.php';
 
 	$output = '';
@@ -8,7 +9,8 @@
 	$stmt = $conn->prepare("SELECT * FROM productclass_tbl");
 	$stmt->execute();
 
-	foreach($stmt as $row){
+	foreach($stmt as $row)
+    {
 		$output .= "
 			<option value='".$row['productclass_id']."' class='append_items'>".$row['product_class']."</option>
 		";

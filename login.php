@@ -3,149 +3,148 @@
 <!DOCTYPE html>
 <html>
 
-<head>
+    <head>
 
-	<!-- Responsiveness -->
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- Responsiveness -->
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-	<!-- CSS Links -->
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.css">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+        <!-- CSS Links -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
-	<link rel="icon" type="icon" href="images/InitialLogo.ico">
-	<link rel="stylesheet" href="css/login_style.css">
-	<link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="icon" type="icon" href="images/InitialLogo.ico">
+        <link rel="stylesheet" href="css/login_style.css">
+        <link rel="stylesheet" href="css/bootstrap.min.css">
 
-	<!-- Title -->
-	<title> Laconsay Beverages </title>
+        <!-- Title -->
+        <title> Laconsay Beverages </title>
 
-</head>
+    </head>
 
-<!-- Navbar but Logo only -->
-<nav class="navigation" id="navigation">
+    <!-- Navbar but Logo only -->
+    <nav class="navigation" id="navigation">
 
-	<div class="content-wrapper">
+        <div class="content-wrapper">
 
-		<a href=""> <img src="images/InitialLogo.png"> </a>
-		<a href="" class="brand"> Laconsay Beverages </a>
+            <a href=""> <img src="images/InitialLogo.png"> </a>
+            <a href="" class="brand"> Laconsay Beverages </a>
 
-	</div>
+        </div>
 
-</nav>
+    </nav>
 
-<body>
+    <!-- BODY -->
+    <body>
 
-	<div class="content">
+        <div class="content">
 
-		<div class="container">
+            <div class="container">
 
-			<div class="row">
+                <div class="row">
 
-				<div class="col-md-6">
+                    <div class="col-md-6">
 
-					<!-- Content Design Only -->
-					<div class="text-block">
-						<h1> Beverages </h1>
-						<p> Good Sip for Good Moments </p>
-					</div>
+                        <!-- Content Design Only -->
+                        <div class="text-block">
+                            <h1> Beverages </h1>
+                            <p> Good Sip for Good Moments </p>
+                        </div>
 
-					<img src="images/Image_2.png" alt="Image" class="img-fluid">
+                        <img src="images/Image_2.png" alt="Image" class="img-fluid">
 
-				</div>
+                    </div>
 
-				<div class="col-md-6 contents">
+                    <div class="col-md-6 contents">
 
-					<div class="row justify-content-center">
+                        <div class="row justify-content-center">
 
-						<div class="col-md-8">
+                            <div class="col-md-8">
 
-							<div class="mb-4">
-								<h2><strong>Log In</strong></h2>
-							</div>
+                                <div class="mb-4">
+                                    <h2><strong>Log In</strong></h2>
+                                </div>
 
-							<!-- Verification for Login Input -->
-							<?php
-                            if (isset($_SESSION['error'])) {
-	                            echo "
-										<div class='callout callout-danger text-center'>
-											<p>" . $_SESSION['error'] . "</p> 
-										</div>
-									";
-	                            unset($_SESSION['error']);
-                            }
-                            if (isset($_SESSION['success'])) {
-	                            echo "
-										<div class='callout callout-success text-center'>
-											<p>" . $_SESSION['success'] . "</p> 
-										</div>
-									";
-	                            unset($_SESSION['success']);
-                            }
-                            ?>
+                                <!-- PHP CODE -->
+                                <!-- Verification for Login Input -->
+                                <?php
+                                    if (isset($_SESSION['error']))
+                                    {
+                                        echo "
+										    <div class='callout callout-danger text-center'>
+											    <p>" . $_SESSION['error'] . "</p> 
+										    </div>
+									    ";
 
-							<!-- Form -->
-							<form action="verify.php" method="POST">
+                                        unset($_SESSION['error']);
+                                    }
+                                    
+                                    if (isset($_SESSION['success']))
+                                    {
+                                        echo "
+										    <div class='callout callout-success text-center'>
+											    <p>" . $_SESSION['success'] . "</p> 
+										    </div>
+									    ";
 
-								<div class="form-group first input-icons">
+                                        unset($_SESSION['success']);
+                                    }
+                                ?>
 
-									<i class="fas fa-user-alt icon"></i>
-									<input type="text" class="form-control" name="txt_username" placeholder="Username"
-										required>
+                                <!-- Form -->
+                                <form action="verify.php" method="POST">
 
-								</div>
+                                    <div class="form-group first input-icons">
 
-								<div class="form-group last mb-4 input-icons">
+                                        <i class="fas fa-user-alt icon"></i>
+                                        <input type="text" class="form-control" name="txt_username" placeholder="Username" required>
 
-									<i class="fas fa-lock icon"></i>
-									<input type="password" class="form-control" name="txt_password"
-										placeholder="Password" required>
+                                    </div>
 
-								</div>
+                                    <div class="form-group last mb-4 input-icons">
 
-								<div class="d-flex mb-5 align-items-center">
+                                        <i class="fas fa-lock icon"></i>
+                                        <input type="password" class="form-control" name="txt_password" placeholder="Password" required>
 
-									<label class="control control--checkbox mb-0"><span class="caption">Remember
-											me</span>
+                                    </div>
 
-										<input type="checkbox" checked="checked" />
-										<div class="control__indicator"></div>
+                                    <div class="d-flex mb-5 align-items-center">
 
-									</label>
+                                        <label class="control control--checkbox mb-0">
+                                            <span class="caption">Remember me</span>
+                                            <input type="checkbox" checked="checked" />
+                                            <div class="control__indicator"></div>
+                                        </label>
 
-                                    <label class="control control--checkbox mb-0"><span class="caption"> </span>
-									</label>
+                                        <label class="control control--checkbox mb-0">
+                                            <span class="caption"> </span>
+                                        </label>
 
-								</div>
+                                    </div>
 
+                                    <div class="btn-right">
 
+                                        <button type="submit" name="btn_login">
+                                            <img src="./images/Login_Icon.png" alt="submit" width="150" height="150" position="right" />
+                                        </button>
 
-								<div class="btn-right">
+                                    </div>
 
-									<button type="submit" name="btn_login">
+                                </form>
 
-										<img src="./images/Login_Icon.png" alt="submit" width="150" height="150"
-											position="right" />
+                            </div>
 
-									</button>
+                        </div>
 
-								</div>
+                    </div>
 
-							</form>
+                </div>
 
-						</div>
+            </div>
 
-					</div>
+        </div>
 
-				</div>
-
-			</div>
-
-		</div>
-
-	</div>
-
-</body>
+    </body>
 
 </html>

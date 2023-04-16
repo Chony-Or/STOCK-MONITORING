@@ -1,50 +1,55 @@
-<?php
-include 'includes/session.php';
-$conn = $pdo->open();
+<?php 
 
-if (isset($_POST['btn_login'])) {
-    $username = $_POST['txt_username'];
-    $password = $_POST['txt_password'];
+    include 'includes/session.php';
+    $conn = $pdo->open();
 
-    try {
-        $stmt = $conn->prepare("SELECT *, COUNT(*) AS numrows FROM admin_tbl WHERE admin_username=:uname");
-        $stmt->execute([':uname' => $username]);
-        $row = $stmt->fetch();
+    if (isset($_POST['btn_login']))
+    {
+        $username = $_POST['txt_username'];
+        $password = $_POST['txt_password'];
 
-        if ($row['numrows'] > 0)
-        {
-            if ($username == $row["admin_username"]) 
+        try {
+            $stmt = $conn->prepare("SELECT *, COUNT(*) AS numrows FROM admin_tbl WHERE admin_username=:uname");
+            $stmt->execute([':uname' => $username]);
+            $row = $stmt->fetch();
+
+            if ($row['numrows'] > 0)
             {
-                if (password_verify($password, $row['admin_password']))
+                if ($username == $row["admin_username"]) 
                 {
-                    $_SESSION["admin_login"] = $row["admin_id"]; //session name is "user_login"
-                } 
+                    if (password_verify($password, $row['admin_password']))
+                    {
+                        $_SESSION["admin_login"] = $row["admin_id"]; //session name is "user_login"
+                    } 
+                    
+                    else 
+                        $_SESSION['error'] = 'Incorrect Password';
+                }
+
                 else 
-                
-                    $_SESSION['error'] = 'Incorrect Password';
+                {
+                    $_SESSION['error'] = 'Account not activated.';
+                }
             }
+            
             else 
             {
-                $_SESSION['error'] = 'Account not activated.';
+                $_SESSION['error'] = 'Email not found';
             }
-        }
-        else 
+        } 
+        
+        catch (PDOException $e)
         {
-            $_SESSION['error'] = 'Email not found';
+            echo "There is some problem in connection: " . $e->getMessage();
         }
     } 
-    catch (PDOException $e)
+    
+    else 
     {
-        echo "There is some problem in connection: " . $e->getMessage();
+        $_SESSION['error'] = 'Input login credentials first';
     }
 
-} 
-else 
-{
-    $_SESSION['error'] = 'Input login credentials first';
-}
+    $pdo->close();
 
-$pdo->close();
-
-header('location: login.php');
+    header('location: login.php');
 ?>

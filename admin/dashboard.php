@@ -23,184 +23,248 @@ if ($stmt = $mysqli->prepare('SELECT *, pendingorder_tbl.pendingOrder_id AS pend
 ?>
 
     <?php include 'includes/header.php'; ?>
-    <?php include 'includes/sidebar.php'; ?>
-    <link rel="stylesheet" href="css/styles.css">
-    <link rel="stylesheet" href="css/table1.css">
+    <?php include 'includes/menubar.php'; ?>
 
     <body>
 
-        <!-- Inner Content Code -->
+        <!-- MAIN BODY CONTENT -->
+        <main>
 
-        <div class='dashboard-app'>
+            <section>
 
-            <header class='dashboard-toolbar'>
+                <h4> DASHBOARD </h4>
 
-                <a href="#!" class="menu-toggle">
-                    <i class="fas fa-bars"></i>
-                </a>
+                <div class="row">
 
-            </header>
+                    <div class="col-sm-6 mb-3 mb-sm-0">
 
-            <div class='dashboard-content'>
+                        <div class="card card-container">
 
-                <div class='container'>
+                            <div class="card-body">
 
-                    <h4> DASHBOARD </h4>
+                                <div class="container text-center">
 
-                    <div class="container-fluid" style="background-color: white;">
-                        <h5> Overview </h5>
+                                    <div class="row align-items-center">
 
-                        <div class="row">
+                                        <div class="col">
+                                            <div class="list-group">
 
-                            <div class="col">
+                                                <label class="list-group-item">
+                                                    <i class='bx bx-cart-add'></i>
+                                                    No. Purchase
 
-                                <div class="list-group">
+                                                    <?php
+                                                    $stmt = $conn->prepare("SELECT *, COUNT(*) AS numrows FROM transachistory_tbl");
+                                                    $stmt->execute();
+                                                    $urow =  $stmt->fetch();
 
-                                    <label class="list-group-item">
-                                        <i class='bx bx-cart-add'></i>
-                                        No. Purchase
+                                                    echo "<h3>" . $urow['numrows'] . "</h3>";
+                                                    ?>
+                                                </label>
 
-                                        <?php
-                                        $stmt = $conn->prepare("SELECT *, COUNT(*) AS numrows FROM transachistory_tbl");
-                                        $stmt->execute();
-                                        $urow =  $stmt->fetch();
+                                                <label class="list-group-item">
+                                                    <i class='bx bx-purchase-tag-alt'></i>
+                                                    Total Products
 
-                                        echo "<h3>" . $urow['numrows'] . "</h3>";
-                                        ?>
-                                    </label>
+                                                    <?php
+                                                    $stmt = $conn->prepare("SELECT *, COUNT(*) AS numrows FROM product_tbl");
+                                                    $stmt->execute();
+                                                    $urow =  $stmt->fetch();
 
-                                    <label class="list-group-item">
-                                        <i class='bx bx-purchase-tag-alt'></i>
-                                        Total Products
+                                                    echo "<h3>" . $urow['numrows'] . "</h3>";
+                                                    ?>
+                                                </label>
 
-                                        <?php
-                                        $stmt = $conn->prepare("SELECT *, COUNT(*) AS numrows FROM product_tbl");
-                                        $stmt->execute();
-                                        $urow =  $stmt->fetch();
+                                            </div>
 
-                                        echo "<h3>" . $urow['numrows'] . "</h3>";
-                                        ?>
-                                    </label>
 
-                                </div>
+                                        </div>
 
-                            </div>
+                                        <div class="col">
 
-                            <div class="col">
+                                            <div class="list-group">
 
-                                <div class="list-group">
+                                                <label class="list-group-item">
+                                                    <i class='bx bxs-message-square-x'></i>
+                                                    Total Users
 
-                                    <label class="list-group-item">
-                                        <i class='bx bxs-message-square-x'></i>
-                                        Total Users
+                                                    <?php
+                                                    $stmt = $conn->prepare("SELECT *, COUNT(*) AS numrows FROM customer_tbl");
+                                                    $stmt->execute();
+                                                    $urow =  $stmt->fetch();
 
-                                        <?php
-                                        $stmt = $conn->prepare("SELECT *, COUNT(*) AS numrows FROM customer_tbl");
-                                        $stmt->execute();
-                                        $urow =  $stmt->fetch();
+                                                    echo "<h3>" . $urow['numrows'] . "</h3>";
+                                                    ?>
+                                                </label>
 
-                                        echo "<h3>" . $urow['numrows'] . "</h3>";
-                                        ?>
-                                    </label>
+                                                <label class="list-group-item">
+                                                    <i class='bx bx-arrow-back'></i>
+                                                    Pending Orders
 
-                                    <label class="list-group-item">
-                                        <i class='bx bx-arrow-back'></i>
-                                        Pending Orders
+                                                    <?php
+                                                    $stmt = $conn->prepare("SELECT *, COUNT(*) AS numrows FROM pendingorder_tbl");
+                                                    $stmt->execute();
+                                                    $urow =  $stmt->fetch();
 
-                                        <?php
-                                        $stmt = $conn->prepare("SELECT *, COUNT(*) AS numrows FROM pendingorder_tbl");
-                                        $stmt->execute();
-                                        $urow =  $stmt->fetch();
+                                                    echo "<h3>" . $urow['numrows'] . "</h3>";
+                                                    ?>
+                                                </label>
 
-                                        echo "<h3>" . $urow['numrows'] . "</h3>";
-                                        ?>
-                                    </label>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
 
                                 </div>
 
                             </div>
 
                         </div>
+
                     </div>
 
-                    <div class="container-fluid" style="background-color: white;">
-                        <h5>Pending Orders </h5>
+                    <div class="col-sm-6">
 
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th scope="col">Order No.</th>
-                                    <th scope="col">Name</th>
-                                    <th scope="col">Date</th>
-                                    <th scope="col">View</th>
-                                    <th scope="col">Accept/Cancel</th>
-                                </tr>
-                            </thead>
-                            <tbody>
+                        <div class="card card-container">
 
-                                <?php while ($row = $result->fetch_assoc()) : ?>
-                                    <tr>
-                                        <td data-label="Order No."> <?php echo $row['order_number']; ?> </td>
-                                        <td data-label="Name"> <?php echo $row['customer_name']; ?> </td>
-                                        <td data-label="Time"> <?php echo $row['date_created']; ?> </td>
-                                        <td data-label="View">
+                            <div class="card-body">
 
-                                            <a href="index.php?page=view_page&id=<?php echo $row['order_number'] ?>" class="btn btn-primary btn-sm">
-                                                <span> <i class='bx bx-search-alt'></i>
+                                <h5> Pending Orders </h5>
 
-                                        </td>
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col"> Order No. </th>
+                                            <th scope="col"> Name </th>
+                                            <th scope="col"> Date </th>
+                                            <th scope="col"> View </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php while ($row = $result->fetch_assoc()) : ?>
+                                            <tr>
+                                                <td data-label="Order No."> <?php echo $row['order_number']; ?> </td>
+                                                <td data-label="Name"> <?php echo $row['customer_name']; ?> </td>
+                                                <td data-label="Time"> <?php echo $row['date_created']; ?> </td>
+                                                <td data-label="View">
 
-                                        <td data-label="Accept/Cancel">
+                                                    <a href="index.php?page=view_page&id=<?php echo $row['order_number'] ?>" class="btn btn-primary btn-sm">
+                                                        <span> <i class='bx bx-search-alt'></i>
 
-                                            <a href="index.php?page=order_accept&id=<?php echo $row['order_number'] ?>" class="btn btn-success btn-sm" data-bs-toggle="modal">
-                                                <span> <i class='bx bx-check'></i>
-                                            </a>
+                                                </td>
 
-                                            <a href="#delete_<?php echo $row['pendingOrder_id']; ?>" class="btn btn-danger btn-sm" data-bs-toggle="tooltip" data-bs-title="Default tooltip" data-bs-toggle="modal">
-                                                <span> <i class='bx bx-x'></i>
-                                            </a>
+                                            </tr>
 
-                                        </td>
-
-                                    </tr>
-
-                                    <!-- Include Modal php
+                                            <!-- Include Modal php
                                     <php include('view_modal.php'); ?> -->
-                            </tbody>
-                        <?php endwhile; ?>
-                        </table>
 
-                    <?php
-                    $pdo->close();
-                }
-                    ?>
+                                    </tbody>
+                                <?php endwhile; ?>
+                                </table>
 
+                                <!-- Pagination of the Table -->
+
+                            <?php if (ceil($total_pages / $num_results_on_page) > 0) : ?>
+                        
+                            <ul class="pagination">
+                                <?php if ($page > 1) : ?>
+                                    <li class="prev">
+                                        <a href="dashboard.php?page=<?php echo $page - 1 ?>">Prev</a>
+                                    </li>
+                                <?php endif; ?>
+
+                                <?php if ($page > 3) : ?>
+                                    <li class="start">
+                                        <a href="dashboard.php?page=1">1</a>
+                                    </li>
+                                    <li class="dots">...</li>
+                                <?php endif; ?>
+
+                                <?php if ($page - 2 > 0) : ?>
+                                    <li class="page">
+                                        <a href="dashboard.php?page=<?php echo $page - 2 ?>"><?php echo $page - 2 ?></a>
+                                    </li>
+                                <?php endif; ?>
+
+                                <?php if ($page - 1 > 0) : ?>
+                                    <li class="page">
+                                        <a href="dashboard.php?page=<?php echo $page - 1 ?>"><?php echo $page - 1 ?></a>
+                                    </li>
+                                <?php endif; ?>
+
+                                <li class="currentpage">
+                                    <a href="dashboard.php?page=<?php echo $page ?>"><?php echo $page ?></a>
+                                </li>
+
+                                <?php if ($page + 1 < ceil($total_pages / $num_results_on_page) + 1) : ?>
+                                    <li class="page">
+                                        <a href="dashboard.php?page=<?php echo $page + 1 ?>"><?php echo $page + 1 ?></a>
+                                    </li>
+                                <?php endif; ?>
+
+                                <?php if ($page + 2 < ceil($total_pages / $num_results_on_page) + 1) : ?>
+                                    <li class="page">
+                                        <a href="dashboard.php?page=<?php echo $page + 2 ?>"><?php echo $page + 2 ?></a>
+                                    </li>
+                                <?php endif; ?>
+
+                                <?php if ($page < ceil($total_pages / $num_results_on_page) - 2) : ?>
+                                    <li class="dots">...</li>
+                                    <li class="end">
+                                        <a href="dashboard.php?page=<?php echo ceil($total_pages / $num_results_on_page) ?>">
+                                            <?php echo ceil($total_pages / $num_results_on_page) ?>
+                                        </a>
+                                    </li>
+                                <?php endif; ?>
+
+                                <?php if ($page < ceil($total_pages / $num_results_on_page)) : ?>
+                                    <li class="next">
+                                        <a href="dashboard.php?page=<?php echo $page + 1 ?>">Next</a>
+                                    </li>
+                                <?php endif; ?>
+
+                            </ul>
+
+                            <?php endif; ?>
+
+                            <?php $pdo->close();
+                        } ?>
+
+
+
+                            </div>
+
+                        </div>
 
                     </div>
-
 
                 </div>
 
-            </div>
+                <br>
 
-        </div>
+                <!-- CHART -->
+                <div class="container-fluid" style="background-color: white;">
 
-        </div>
-        <!-- partial -->
+                    <h3> CHART </h3>
 
+                    <div class="chart-container">
+        <canvas id="myChart"></canvas>
+    </div>
 
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+                </div>
 
-        <script>
-            const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
-            const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
-        </script>
+            </section>
 
+        </main>
+
+        <?php include 'includes/javascripts.php'; ?>
+
+        <script src="js/chart.js"></script> <!-- Chart Javascript -->
+        <!-- Chart JS -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+        
     </body>
-
-    <!--<div class='card'>
-<div class='card-header'> <h1>Welcome back Ha</h1> </div>
-<div class='card-body'> <p>Your account type is: Administrator </p> </div>
-</div> -->
 
     </html>

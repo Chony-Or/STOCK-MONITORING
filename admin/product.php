@@ -20,8 +20,8 @@ $total_products = $conn->query('SELECT * FROM product_tbl')->rowCount();
 ?>
 
 <?php include 'includes/header.php'; ?>
-<?php include 'includes/sidebar.php'; ?>
-<link rel="stylesheet" href="css/styles.css">
+<?php include 'includes/menubar.php'; ?>
+
 <link rel="stylesheet" href="css/inventory.css">
 
 <style>
@@ -34,77 +34,139 @@ $total_products = $conn->query('SELECT * FROM product_tbl')->rowCount();
 
 <body>
 
-    <!-- Inner Content Code -->
+    <!-- MAIN BODY CONTENT -->
+    <main>
 
-    <div class='dashboard-app'>
+        <section> <BR>
 
-        <header class='dashboard-toolbar'>
+            <h4> INVENTORY </h4> <br>
 
-            <a href="#!" class="menu-toggle">
-                <i class="fas fa-bars"></i>
-            </a>
+            <!-- 1 Row 2 Columns -->
+            <div class="row">
 
-        </header>
+                <!-- Search Container -->
+                <div class="col-sm-9 mb-3 mb-sm-0">
 
-        <div class='dashboard-content'>
+                    <div class="card card-container">
 
-            <div class='container'>
+                        <div class="card-body">
 
-                <section class="home-section">
+                            <div class="container text-left">
 
-                    <main>
+                                <div class="row align-items-left">
 
-                        <div class="text"> Inventory </div>
-                        <!-- Button trigger modal -->
+                                    <div class="input-box">
 
-                        <div class="container-fluid" style="background-color: white;">
+                                        <i class="uil uil-search"></i>
 
-                            <div class="products content-wrapper-gallery">
+                                        <form action="product.php" method="GET">
 
-                                <a href="#add_product" class="btn btn-light" data-bs-toggle="modal"> <span> <i class='bx bxs-add-to-queue'></i> </span> Add Product</a>
+                                            <div class="form-group">
 
-                                <p>
-                                    <?= $total_products ?> Products
-                                </p>
-                                <div class="products-wrapper">
-                                    <?php foreach ($products as $product) : ?>
-                                        <a href="index.php?page=product_info&id=<?= $product['product_id'] ?>" class="product">
+                                                <input type="text" name="search" placeholder="Search products">
 
-                                            <img class="inv_img" src="./productsImages/<?= $product['product_picture'] ?>" alt="<?= $product['product_name'] ?>">
-                                            <span class="name">
-                                                <?= $product['product_name'] ?>
-                                            </span>
-                                            <span class="price">
-                                                &#8369;<?= $product['product_price'] ?>
-                                            </span>
-                                        </a>
-                                    <?php endforeach; ?>
+                                            </div>
+
+                                            <button class="button" type="submit" value="Search">Search</button>
+
+                                        </form>
+
+                                    </div>
+
                                 </div>
 
-                                <?php include 'product_addModal.php' ?>
-
-                                <div class="buttons">
-                                    <?php if ($current_page > 1) : ?>
-                                        <a href="index.php?page=product&p=<?= $current_page - 1 ?>">Prev</a>
-                                    <?php endif; ?>
-                                    <?php if ($total_products > ($current_page * $num_products_on_each_page) - $num_products_on_each_page + count($products)) : ?>
-                                        <a href="index.php?page=product&p=<?= $current_page + 1 ?>">Next</a>
-                                    <?php endif; ?>
-                                </div>
                             </div>
 
                         </div>
-                    </main>
-                </section>
+
+                    </div>
+
+                </div>
+
+                <!-- Dropdown Container -->
+                <div class="col-sm-3">
+
+                    <div class="card card-container">
+
+                        <div class="card-body">
+
+                            <!-- Position Text to Right -->
+                            <div class="container text-end">
+
+                                <!-- Position Items to Right -->
+                                <div class="row align-items-end">
+
+                                    <!-- Dropdown Menu -->
+                                    <div class="dropdown">
+
+                                        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                            Dropdown button
+                                        </button>
+
+                                        <ul class="dropdown-menu">
+                                            <li><a class="dropdown-item" href="#">Action</a></li>
+                                            <li><a class="dropdown-item" href="#">Another action</a></li>
+                                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                        </ul>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div> <br>
+
+            <!-- PRODUCTS -->
+            <div class="container-fluid" style="background-color: white;">
+
+                <div class="products content-wrapper-gallery">
+
+                    <a href="#add_product" class="btn btn-light" data-bs-toggle="modal"> <span> <i class='bx bxs-add-to-queue'></i> </span> Add Product</a>
+
+                    <p>
+                        <?= $total_products ?> Products
+                    </p>
+                    <div class="products-wrapper">
+                        <?php foreach ($products as $product) : ?>
+                            <a href="index.php?page=product_info&id=<?= $product['product_id'] ?>" class="product">
+
+                                <img class="inv_img" src="./productsImages/<?= $product['product_picture'] ?>" alt="<?= $product['product_name'] ?>">
+                                <span class="name">
+                                    <?= $product['product_name'] ?>
+                                </span>
+                                <span class="price">
+                                    &#8369;<?= $product['product_price'] ?>
+                                </span>
+                            </a>
+                        <?php endforeach; ?>
+                    </div>
+
+                    <?php include 'product_addModal.php' ?>
+
+                    <div class="buttons">
+                        <?php if ($current_page > 1) : ?>
+                            <a href="index.php?page=product&p=<?= $current_page - 1 ?>">Prev</a>
+                        <?php endif; ?>
+                        <?php if ($total_products > ($current_page * $num_products_on_each_page) - $num_products_on_each_page + count($products)) : ?>
+                            <a href="index.php?page=product&p=<?= $current_page + 1 ?>">Next</a>
+                        <?php endif; ?>
+                    </div>
+                </div>
 
             </div>
 
-        </div>
+        </section>
 
-    </div>
+    </main>
 
-    </div>
-    <!-- partial -->
+    <?php include 'includes/javascripts.php'; ?>
 
 </body>
 

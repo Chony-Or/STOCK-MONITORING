@@ -1,0 +1,15 @@
+.chart-container {
+    width: 800px;
+    height: 400px;
+    margin: 0 auto;
+}
+
+/* Optional: Add styling to chart title or legend */
+.chart-title {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+.chart-legend {
+    text-align: center;
+}
