@@ -12,7 +12,7 @@
   --title-color: #19181B;
   --text-color: #58555E;
   --text-color-light: #A5A1AA;
-  --body-color: #E4E9F7;
+  --body-color: #f5f5f5; /* #f5f5f5 */
   --container-color: #FFFFFF;
 
   /*========== Font and typography ==========*/
@@ -62,6 +62,10 @@ a {
 img {
   max-width: 100%;
   height: auto;
+}
+
+.section-1 {
+  background: #f5f5f5;
 }
 
 /*========== HEADER ==========*/

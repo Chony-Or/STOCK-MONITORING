@@ -20,26 +20,20 @@
 
                     <!-- Customer Name -->
                     <div class="mb-3">
-                        <label for="customer" class="form-label">Customer Name</label>
-                        <input type="text" class="form-control" name="regular_name" id="customer">
+                        <label for="customer" class="form-label">Guest Customer Name</label>
+                        <input type="text" class="form-control" name="guest_name" id="customer">
                     </div>
 
                     <!-- Customer Address -->
                     <div class="mb-3">
                         <label for="address" class="form-label">Address</label>
-                        <textarea class="form-control" name="regular_address" id="address" rows="2"></textarea>
+                        <textarea class="form-control" name="guest_address" id="address" rows="2"></textarea>
                     </div>
 
                     <!-- Customer Contact Number -->
                     <div class="mb-3">
                         <label for="contact" class="form-label">Contact Number</label>
-                        <input type="number" class="form-control" name="regular_contact" id="contact">
-                    </div>
-
-                    <!-- Customer password -->
-                    <div class="mb-3">
-                        <label for="password" class="form-label">Password</label>
-                        <input type="password" class="form-control" name="regular_password" id="password">
+                        <input type="number" class="form-control" name="guest_contact" id="contact">
                     </div>
 
             </div>
@@ -79,27 +73,20 @@
 
                     <!-- Customer Name -->
                     <div class="mb-3">
-                        <label class="form-label">Customer Name</label>
-                        <input type="text" class="form-control" name="rName" value="<?php echo $row['customer_name']; ?>">
+                        <label class="form-label">Guest Customer Name</label>
+                        <input type="text" class="form-control" name="guest_name" value="<?php echo $row['customer_name']; ?>">
                     </div>
 
                     <!-- Customer Address -->
                     <div class="mb-3">
                         <label class="form-label"> Address </label>
-                        <textarea class="form-control" name="rAddress" rows="2"> <?php echo $row['customer_address']; ?> </textarea>
+                        <textarea class="form-control" name="guest_address" rows="2"> <?php echo $row['customer_address']; ?> </textarea>
                     </div>
 
                     <!-- Customer Contact Number -->
                     <div class="mb-3">
                         <label class="form-label"> Contact Number</label>
-                        <input type="number" class="form-control" name="rContact" value="<?php echo $row['customer_contactNo']; ?>">
-                    </div>
-
-                    <!-- Customer Password -->
-                    <div class="mb-3">
-                        <label class="form-label"> Password </label>
-                        <input type="password" class="form-control" name="rPassword" aria-describedby="passwordNote" value="" autocomplete="off">
-                        <div id="passwordNote" class="form-text">Leave this blank if you do not want to change password. </div>
+                        <input type="number" class="form-control" name="guest_contact" value="<?php echo $row['customer_contactNo']; ?>">
                     </div>
 
             </div>
@@ -127,7 +114,7 @@
 
             <!-- Modal Delete Header -->
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Delete Regular Customer </h1>
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Delete guest Customer </h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 

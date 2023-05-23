@@ -6,10 +6,9 @@
 
     if (isset($_POST['add']))
     {
-        $customer = $_POST['regular_name'];
-        $address = $_POST['regular_address'];
-        $contact = $_POST['regular_contact'];
-        $password = $_POST['regular_password'];
+        $customer = $_POST['guest_name'];
+        $address = $_POST['guest_address'];
+        $contact = $_POST['guest_contact'];
 
         try
         {
@@ -31,7 +30,7 @@
                     $insert_stmt->execute(
                         array(
                             ':cname' => $customer,
-                            ':ccategory' => 1,
+                            ':ccategory' => 2,
                             ':caddress' => $address,
                             ':ccontact' => $contact,
                             ':cpassword' => $new_password

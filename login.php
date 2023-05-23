@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <html>
 
+    <!-- ================================================== HEADER ================================================== -->
     <head>
 
         <!-- Responsiveness -->
@@ -14,7 +15,7 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
-        <link rel="icon" type="icon" href="images/InitialLogo.ico">
+        <link rel="icon" type="icon" href="images/InitialLogo.png">
         <link rel="stylesheet" href="css/login_style.css">
         <link rel="stylesheet" href="css/bootstrap.min.css">
 
@@ -23,6 +24,7 @@
 
     </head>
 
+    <!-- ================================================== NAVIGATION BAR ================================================== -->
     <!-- Navbar but Logo only -->
     <nav class="navigation" id="navigation">
 
@@ -33,9 +35,13 @@
 
         </div>
 
-    </nav>
+    </nav> <!-- ================================================== END OF NAVIGATION BAR ================================================== -->
 
-    <!-- BODY -->
+
+
+
+    
+    <!-- ================================================== BODY ================================================== -->
     <body>
 
         <div class="content">
@@ -47,12 +53,12 @@
                     <div class="col-md-6">
 
                         <!-- Content Design Only -->
-                        <div class="text-block">
+                        <div class="text-block text-center">
                             <h1> Beverages </h1>
                             <p> Good Sip for Good Moments </p>
                         </div>
 
-                        <img src="images/Image_2.png" alt="Image" class="img-fluid">
+                        <img src="images/Image_3.png" alt="Image" class="img-fluid">
 
                     </div>
 
@@ -63,15 +69,15 @@
                             <div class="col-md-8">
 
                                 <div class="mb-4">
-                                    <h2><strong>Log In</strong></h2>
+                                    <h1><strong>Log In</strong></h1>
                                 </div>
 
-                                <!-- PHP CODE -->
+                                <!-- ------------------------------ PHP CODE ------------------------------ -->
                                 <!-- Verification for Login Input -->
                                 <?php
                                     if (isset($_SESSION['error']))
                                     {
-                                        echo "
+                                        echo"
 										    <div class='callout callout-danger text-center'>
 											    <p>" . $_SESSION['error'] . "</p> 
 										    </div>
@@ -79,7 +85,7 @@
 
                                         unset($_SESSION['error']);
                                     }
-                                    
+
                                     if (isset($_SESSION['success']))
                                     {
                                         echo "
@@ -90,11 +96,12 @@
 
                                         unset($_SESSION['success']);
                                     }
-                                ?>
+                                ?> <!-- ------------------------------ END OF PHP CODE ------------------------------ -->
 
-                                <!-- Form -->
+                                <!-- ----- FORM ----- -->
                                 <form action="verify.php" method="POST">
 
+                                    <!-- Username -->
                                     <div class="form-group first input-icons">
 
                                         <i class="fas fa-user-alt icon"></i>
@@ -102,6 +109,7 @@
 
                                     </div>
 
+                                    <!-- Password -->
                                     <div class="form-group last mb-4 input-icons">
 
                                         <i class="fas fa-lock icon"></i>
@@ -145,6 +153,6 @@
 
         </div>
 
-    </body>
+    </body> <!-- ================================================== END OF BODY ================================================== -->
 
 </html>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 
-    <!-- HEAD -->
+    <!-- ================================================== HEADER ================================================== -->
     <head>
 
         <!-- Responsiveness -->
@@ -11,7 +11,7 @@
 
         <!-- Title -->
         <title> Laconsay Beverages </title>
-        <link rel="icon" type="icon" href="images/InitialLogo.png">
+        <link rel="icon" type="icon" href="../images/InitialLogo.png">
 
         <!-- Bootstrap Link -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
@@ -30,4 +30,4 @@
         <link rel="stylesheet" href="css/search.css"> <!-- Style for Search -->
         <link rel="stylesheet" href="css/chart.css"> <!-- Style for Chart -->
 
-    </head>
+    </head> <!-- ================================================== END OF HEADER ================================================== -->

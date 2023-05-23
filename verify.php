@@ -1,6 +1,7 @@
 <?php 
 
     include 'includes/session.php';
+
     $conn = $pdo->open();
 
     if (isset($_POST['btn_login']))
@@ -8,7 +9,8 @@
         $username = $_POST['txt_username'];
         $password = $_POST['txt_password'];
 
-        try {
+        try
+        {
             $stmt = $conn->prepare("SELECT *, COUNT(*) AS numrows FROM admin_tbl WHERE admin_username=:uname");
             $stmt->execute([':uname' => $username]);
             $row = $stmt->fetch();
@@ -42,7 +44,7 @@
         {
             echo "There is some problem in connection: " . $e->getMessage();
         }
-    } 
+    }
     
     else 
     {

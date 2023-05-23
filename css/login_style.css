@@ -3,8 +3,12 @@
 
 /*LANDING PAGE CSS */
 
-body{
+*{
 	font-family: 'Poppins', serif;
+}
+
+.img-fluid{
+	padding-top: 300px;
 }
 
 .navigation{
@@ -59,9 +63,9 @@ body{
 
 .text-block{
 	position: absolute;
-	top: 150px;
+	top: 300px;
 	background-color: trasparent;
-	padding-left: 80px;
+	padding-left: 20px;
 	padding-right: 80px;
 }
 
@@ -75,7 +79,7 @@ body{
 
 @media (min-width: 544px){
 	.text-block, .text-block h1{
-		font-size: 4.25rem;
+		font-size: 5rem;
 	}
 }
 
@@ -101,7 +105,7 @@ a:hover{
 	text-decoration: none !important; }
 
 .content{
-	padding: 50px 20px 10px 20px;
+	padding: 10% 20px 10px 20px;
 }
 
 @media (max-width: 991.98px){

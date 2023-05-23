@@ -1,58 +1,56 @@
-<?php
+<?php include 'includes/session.php'; ?>
 
-    include 'includes/session.php';
-
-    // Below is optional, remove if you have already connected to your database.
-    $mysqli = mysqli_connect('localhost', 'root', '', 'la_bvrgs');
-
-    // Check if the page number is specified and check if it's a number, if not return the default page number which is 1.
-    $page = isset($_GET['page']) && is_numeric($_GET['page']) ? $_GET['page'] : 1;
-
-    // Number of results to show on each page.
-    $num_results_on_page = 5;
-
-    // Check if search keyword is submitted
-    $search = isset($_GET['search']) ? $_GET['search'] : '';
-
-    // Get the total number of records from our table "students".
-    if (!empty($search)) {
-        $stmt = $mysqli->prepare("SELECT COUNT(*) as total FROM customer_tbl WHERE customerClass_id=1 AND (customer_id LIKE ? OR customer_name LIKE ? OR customer_address LIKE ? OR customer_contactNo LIKE ?)");
-        $search_param = "%{$search}%";
-        $stmt->bind_param('ssss', $search_param, $search_param, $search_param, $search_param);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        $total_pages = $result->fetch_assoc()['total'];
-    } else {
-        $total_pages = $mysqli->query('SELECT * FROM customer_tbl')->num_rows;
-    }
-
-    if ($stmt = $mysqli->prepare('SELECT * FROM customer_tbl WHERE customerClass_id=2 AND (customer_id LIKE ? OR customer_name LIKE ? OR customer_address LIKE ? OR customer_contactNo LIKE ?) ORDER BY customer_id DESC LIMIT ?,?'))
-    {
-        // Calculate the page to get the results we need from our table.
-        $calc_page = ($page - 1) * $num_results_on_page;
-        $search_param = "%{$search}%";
-        $stmt->bind_param('ssssii', $search_param, $search_param, $search_param, $search_param, $calc_page, $num_results_on_page);
-        $stmt->execute();
-        
-        // Get the results...
-        $result = $stmt->get_result();
+<?php	
+	$stmt = $conn->prepare("SELECT * FROM customer_tbl WHERE customerClass_id=2 ORDER BY customer_id DESC");
+	$stmt->execute();
+	$result = $stmt->fetchAll();
 ?>
-
-
-<!-- Rest of your code -->
-
 
 <?php include 'includes/header.php'; ?>
 <?php include 'includes/menubar.php'; ?>
 
+    <!-- ================================================== BODY ================================================== -->
     <body>
 
-        <!-- MAIN BODY CONTENT FOR REGULAR USER -->
+        <!-- .................... MAIN BODY CONTENT .................... -->
         <main>
 
+            <!-- ------------------------------ Title and Search Bar ------------------------------ -->
+            <section class="py-4 section-1">
+
+                <div class="container py-1">
+
+                    <div class="row text-center">
+                
+                        <div class="col-lg-12 mx-auto">
+
+                            <h1> Guest Customer </h1>
+                            <p class="text-muted lead"> Add, Edit and Delete of data of the Guest Customer </p>
+
+                            <div id="wrap">
+                                
+                                <form action="" autocomplete="on">
+                                    <input id="search" name="search" type="text" placeholder="What're we looking for ?" value="<?php echo $search_query; ?>"><input id="search_submit" value="Rechercher" type="submit">
+                                </form>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+                
+            </section> <!-- ------------------------------ End of Title and Search Bar ------------------------------ -->
+
+
+
+
+
+            <!-- ------------------------------ CONTENT SECTION ------------------------------ -->
             <section>
 
-                <div class="container"> <br>
+                <div class="container">
 
                     <!-- Breadcrumbs and Tab Container -->
                     <div class="container-fluid" style="background-color: white;"> <br>
@@ -60,12 +58,12 @@
                         <!-- Divider -->
                         <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="index.php"> Dashboard </a></li>
-                                <li class="breadcrumb-item" aria-current="page"> Guest </li>
+                                <li class="breadcrumb-item"><a href="index.php">Dashboard</a></li>
+                                <li class="breadcrumb-item" aria-current="page">Guest</li>
                             </ol>
                         </nav>
 
-                        <h4> Guest Customer </h4>
+                        <h4> Guest </h4>
 
                         <!-- Tab -->
                         <div id="tabs" class="tabs">
@@ -73,7 +71,7 @@
                             <nav>
                                 <ul>
                                     <li><a href="user_regular.php" class="icon-shop"><span> Regular </span></a></li>
-                                    <li><a href="user_guest.php" class="icon-cup"><span> Guest </span></a></li>
+                                    <li class="tab-current"><a href="user_guest.php" class="icon-cup"><span> Guest </span></a></li>
                                     <li><a href="user_admin.php" class="icon-food"><span> Admin </span></a></li>
                                 </ul>
                             </nav> <br>
@@ -81,88 +79,6 @@
                         </div>
 
                     </div> <!-- END of Breadcrumbs and Tab Container -->
-
-                    <!-- 1 Row 2 Columns -->
-                    <div class="row">
-
-                        <!-- Search Container -->
-                        <div class="col-sm-9 mb-3 mb-sm-0">
-
-                            <div class="card card-container">
-
-                                <div class="card-body">
-
-                                    <div class="container text-left">
-
-                                        <div class="row align-items-left">
-
-                                            <div class="input-box">
-
-                                                <i class="uil uil-search"></i>
-
-                                                <form action="user_guest.php" method="GET">
-
-                                                    <div class="form-group">
-
-                                                        <input type="text" name="search" placeholder="Search products">
-    
-                                                    </div>
-    
-                                                    <button class="button" type="submit" value="Search">Search</button>
-
-                                                </form>
-
-                                            </div>
-
-                                        </div>
-
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                        <!-- Dropdown Container -->
-                        <div class="col-sm-3">
-
-                            <div class="card card-container">
-
-                                <div class="card-body">
-
-                                    <!-- Position Text to Right -->
-                                    <div class="container text-end">
-
-                                        <!-- Position Items to Right -->
-                                        <div class="row align-items-end">
-
-                                            <!-- Dropdown Menu -->
-                                            <div class="dropdown">
-                                                
-                                                <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                    Dropdown button
-                                                </button>
-                                                
-                                                <ul class="dropdown-menu">
-                                                    <li><a class="dropdown-item" href="#">Action</a></li>
-                                                    <li><a class="dropdown-item" href="#">Another action</a></li>
-                                                    <li><a class="dropdown-item" href="#">Something else here</a></li>
-                                                </ul>
-                                            
-                                            </div>
-
-                                        </div>
-                                    
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                    </div> <br>
                 
                     <!-- TABLE CONTAINER --> 
                     <div class="container-fluid" style="background-color: white;">
@@ -193,102 +109,38 @@
                                 <tbody>
                         
                                     <!-- Nalimot ko purpose pero para sa database to pang fetch ata ng data -->
-                                    <?php while ($row = $result->fetch_assoc()) : ?>
+                                    <?php if (!empty($result)) {
+                                        foreach ($result as $row) { ?>
 
-                                    <tr>
-                                        <!-- PHP Data Fetch to Display -->
-                                        <td data-label="Customer ID"> <?php echo $row['customer_id']; ?> </td>
-                                        <td data-label="Name"> <?php echo $row['customer_name']; ?> </td>
-                                        <td data-label="Address"> <?php echo $row['customer_address']; ?> </td>
-                                        <td data-label="Contact"> <?php echo $row['customer_contactNo']; ?> </td>
-                                        <td data-label="Created By"> <?php echo $row['date_created'] ?> </td>
-                                        <td data-label="Updated By"> <?php echo $row['date_updated'] ?> </td>
-                                        <td data-label="">
-                                            <a href="#edit_<?php echo $row['customer_id']; ?>" class="btn btn-success btn-sm" data-bs-toggle="modal">
-                                                <span> <i class='bx bxs-edit'></i> </span>
-                                            </a>
-                                            <a href="#delete_<?php echo $row['customer_id']; ?>" class="btn btn-danger btn-sm" data-bs-toggle="modal">
-                                                <span> <i class='bx bxs-trash'></i> </span>
-                                            </a>
-                                        </td>
+                                        <tr>
 
-                                        <!-- Include Modal php -->
-                                        <?php include('user_guest_modal.php'); ?>
+                                            <!-- PHP Data Fetch to Display -->
+                                            <td data-label="Customer ID"> <?php echo $row['customer_id']; ?> </td>
+                                            <td data-label="Name"> <?php echo $row['customer_name']; ?> </td>
+                                            <td data-label="Address"> <?php echo $row['customer_address']; ?> </td>
+                                            <td data-label="Contact"> <?php echo $row['customer_contactNo']; ?> </td>
+                                            <td data-label="Created By"> <?php echo $row['date_created'] ?> </td>
+                                            <td data-label="Updated By"> <?php echo $row['date_updated'] ?> </td>
+                                            <td data-label="">
+                                                <a href="#edit_<?php echo $row['customer_id']; ?>" class="btn btn-success btn-sm" data-bs-toggle="modal">
+                                                    <span> <i class='bx bxs-edit'></i> </span>
+                                                </a>
+                                                <a href="#delete_<?php echo $row['customer_id']; ?>" class="btn btn-danger btn-sm" data-bs-toggle="modal">
+                                                    <span> <i class='bx bxs-trash'></i> </span>
+                                                </a>
+                                            </td>
+
+                                            <!-- Include Modal php -->
+                                            <?php include('user_guest_modal.php'); ?>
 
                                         </tr>
-                            
-                                    <?php endwhile; ?> <!-- Connected sa PHP sa pinaka mataas -->
+
+                                        <?php }
+                                        } ?>
                         
                                 </tbody> <!-- End of Table Body -->
                     
                             </table> <!-- END OF TABLE -->
-
-                            <!-- Pagination of the Table -->
-
-                            <?php if (ceil($total_pages / $num_results_on_page) > 0) : ?>
-                        
-                            <ul class="pagination">
-                                <?php if ($page > 1) : ?>
-                                    <li class="prev">
-                                        <a href="user_guest.php?page=<?php echo $page - 1 ?>">Prev</a>
-                                    </li>
-                                <?php endif; ?>
-
-                                <?php if ($page > 3) : ?>
-                                    <li class="start">
-                                        <a href="user_guest.php?page=1">1</a>
-                                    </li>
-                                    <li class="dots">...</li>
-                                <?php endif; ?>
-
-                                <?php if ($page - 2 > 0) : ?>
-                                    <li class="page">
-                                        <a href="user_guest.php?page=<?php echo $page - 2 ?>"><?php echo $page - 2 ?></a>
-                                    </li>
-                                <?php endif; ?>
-
-                                <?php if ($page - 1 > 0) : ?>
-                                    <li class="page">
-                                        <a href="user_guest.php?page=<?php echo $page - 1 ?>"><?php echo $page - 1 ?></a>
-                                    </li>
-                                <?php endif; ?>
-
-                                <li class="currentpage">
-                                    <a href="user_guest.php?page=<?php echo $page ?>"><?php echo $page ?></a>
-                                </li>
-
-                                <?php if ($page + 1 < ceil($total_pages / $num_results_on_page) + 1) : ?>
-                                    <li class="page">
-                                        <a href="user_guest.php?page=<?php echo $page + 1 ?>"><?php echo $page + 1 ?></a>
-                                    </li>
-                                <?php endif; ?>
-
-                                <?php if ($page + 2 < ceil($total_pages / $num_results_on_page) + 1) : ?>
-                                    <li class="page">
-                                        <a href="user_guest.php?page=<?php echo $page + 2 ?>"><?php echo $page + 2 ?></a>
-                                    </li>
-                                <?php endif; ?>
-
-                                <?php if ($page < ceil($total_pages / $num_results_on_page) - 2) : ?>
-                                    <li class="dots">...</li>
-                                    <li class="end">
-                                        <a href="user_guest.php?page=<?php echo ceil($total_pages / $num_results_on_page) ?>">
-                                            <?php echo ceil($total_pages / $num_results_on_page) ?>
-                                        </a>
-                                    </li>
-                                <?php endif; ?>
-
-                                <?php if ($page < ceil($total_pages / $num_results_on_page)) : ?>
-                                    <li class="next">
-                                        <a href="user_guest.php?page=<?php echo $page + 1 ?>">Next</a>
-                                    </li>
-                                <?php endif; ?>
-
-                            </ul>
-                        
-                            <?php endif; ?>
-
-                            <?php $stmt->close(); } ?>
 
                         </div> <!-- END OF CONTAINER OF TABLE -->
 
@@ -296,12 +148,13 @@
             
                 </div> <!-- END OF SECTION CONTAINER -->
 
-            </section> <!-- END OF SECTION -->
+            </section> <!-- ------------------------------ END OF CONTENT SECTION ------------------------------ -->
 
-        </main> <!-- END OF MAIN -->
+        </main> <br> <!-- .................... END OF MAIN BODY CONTENT .................... -->
 
-        <?php include 'includes/javascripts.php'; ?> <!-- CALL THE JAVASCRIPTS -->
-    
+        <?php include 'includes/javascripts.php'; ?>
+
+        
     </body>
 
-</html>
+    </html>

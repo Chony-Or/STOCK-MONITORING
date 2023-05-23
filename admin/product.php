@@ -1,19 +1,12 @@
-<?php include 'includes/session.php' ?>
+<?php include 'includes/session.php'; ?>
 
 <?php
 
-// The amounts of products to show on each page
-$num_products_on_each_page = 12;
-// The current page, in the URL this will appear as index.php?page=products&p=1, index.php?page=products&p=2, etc...
-$current_page = isset($_GET['p']) && is_numeric($_GET['p']) ? (int) $_GET['p'] : 1;
-// Select products ordered by the date added
-$stmt = $conn->prepare('SELECT * FROM product_tbl ORDER BY date_created DESC LIMIT ?,?');
-// bindValue will allow us to use integer in the SQL statement, we need to use for LIMIT
-$stmt->bindValue(1, ($current_page - 1) * $num_products_on_each_page, PDO::PARAM_INT);
-$stmt->bindValue(2, $num_products_on_each_page, PDO::PARAM_INT);
-$stmt->execute();
-// Fetch the products from the database and return the result as an Array
+$category = isset($_GET['category']) ? $_GET['category'] : '';
+$stmt = $conn->prepare("SELECT * FROM product_tbl JOIN productclass_tbl ON product_tbl.productClass_id = productclass_tbl.productClass_id WHERE productclass_tbl.product_class LIKE CONCAT('%', ?, '%') ORDER BY product_tbl.product_id DESC ");
+$stmt->execute([$category]);
 $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
 
 // Get the total number of products
 $total_products = $conn->query('SELECT * FROM product_tbl')->rowCount();
@@ -21,153 +14,168 @@ $total_products = $conn->query('SELECT * FROM product_tbl')->rowCount();
 
 <?php include 'includes/header.php'; ?>
 <?php include 'includes/menubar.php'; ?>
-
-<link rel="stylesheet" href="css/inventory.css">
+<link rel="stylesheet" href="css/product.css"> <!-- Style for Product -->
 
 <style>
-    .inv_img {
-        max-width: 100%;
-        height: 200px;
-        object-fit: contain;
-    }
-</style>
+.product-info {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
 
+.product-info .price {
+  margin-top: auto;
+}
+
+.product-image {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 250px; /* set a fixed height */
+}
+
+.product-image img {
+  max-width: 100%;
+  height: 200px; /* set a fixed width for the image */
+}
+
+.product-info {
+  margin-top: auto; /* Push the product name and price to the bottom of the container */
+  text-align: center; /* Center the product name and price */
+}
+
+</style>
+<!-- ================================================== BODY ================================================== -->
 <body>
 
-    <!-- MAIN BODY CONTENT -->
+    <!-- .................... MAIN BODY CONTENT .................... -->
     <main>
 
-        <section> <BR>
+        <!-- ------------------------------ Title and Search Bar ------------------------------ -->
+        <section class="py-4 section-1">
 
-            <h4> INVENTORY </h4> <br>
+            <div class="container py-1">
 
-            <!-- 1 Row 2 Columns -->
-            <div class="row">
+                <div class="row text-center">
 
-                <!-- Search Container -->
-                <div class="col-sm-9 mb-3 mb-sm-0">
+                    <div class="col-lg-12 mx-auto">
 
-                    <div class="card card-container">
+                        <h1> Inventory </h1>
+                        <p class="text-muted lead"> Add, Edit and Delete of data of the Regular Customer </p>
 
-                        <div class="card-body">
+                        <div id="wrap">
 
-                            <div class="container text-left">
-
-                                <div class="row align-items-left">
-
-                                    <div class="input-box">
-
-                                        <i class="uil uil-search"></i>
-
-                                        <form action="product.php" method="GET">
-
-                                            <div class="form-group">
-
-                                                <input type="text" name="search" placeholder="Search products">
-
-                                            </div>
-
-                                            <button class="button" type="submit" value="Search">Search</button>
-
-                                        </form>
-
-                                    </div>
-
-                                </div>
-
-                            </div>
+                            <form action="" autocomplete="on">
+                                <input id="search" name="search" type="text" placeholder="What're we looking for ?" value="<?php echo $search_query; ?>"><input id="search_submit" value="Rechercher" type="submit">
+                            </form>
 
                         </div>
 
                     </div>
 
-                </div>
-
-                <!-- Dropdown Container -->
-                <div class="col-sm-3">
-
-                    <div class="card card-container">
-
-                        <div class="card-body">
-
-                            <!-- Position Text to Right -->
-                            <div class="container text-end">
-
-                                <!-- Position Items to Right -->
-                                <div class="row align-items-end">
-
-                                    <!-- Dropdown Menu -->
-                                    <div class="dropdown">
-
-                                        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                            Dropdown button
-                                        </button>
-
-                                        <ul class="dropdown-menu">
-                                            <li><a class="dropdown-item" href="#">Action</a></li>
-                                            <li><a class="dropdown-item" href="#">Another action</a></li>
-                                            <li><a class="dropdown-item" href="#">Something else here</a></li>
-                                        </ul>
-
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div> <br>
-
-            <!-- PRODUCTS -->
-            <div class="container-fluid" style="background-color: white;">
-
-                <div class="products content-wrapper-gallery">
-
-                    <a href="#add_product" class="btn btn-light" data-bs-toggle="modal"> <span> <i class='bx bxs-add-to-queue'></i> </span> Add Product</a>
-
-                    <p>
-                        <?= $total_products ?> Products
-                    </p>
-                    <div class="products-wrapper">
-                        <?php foreach ($products as $product) : ?>
-                            <a href="index.php?page=product_info&id=<?= $product['product_id'] ?>" class="product">
-
-                                <img class="inv_img" src="./productsImages/<?= $product['product_picture'] ?>" alt="<?= $product['product_name'] ?>">
-                                <span class="name">
-                                    <?= $product['product_name'] ?>
-                                </span>
-                                <span class="price">
-                                    &#8369;<?= $product['product_price'] ?>
-                                </span>
-                            </a>
-                        <?php endforeach; ?>
-                    </div>
-
-                    <?php include 'product_addModal.php' ?>
-
-                    <div class="buttons">
-                        <?php if ($current_page > 1) : ?>
-                            <a href="index.php?page=product&p=<?= $current_page - 1 ?>">Prev</a>
-                        <?php endif; ?>
-                        <?php if ($total_products > ($current_page * $num_products_on_each_page) - $num_products_on_each_page + count($products)) : ?>
-                            <a href="index.php?page=product&p=<?= $current_page + 1 ?>">Next</a>
-                        <?php endif; ?>
-                    </div>
                 </div>
 
             </div>
 
-        </section>
+        </section> <!-- ------------------------------ End of Title and Search Bar ------------------------------ -->
 
-    </main>
 
-    <?php include 'includes/javascripts.php'; ?>
 
-</body>
 
-</html>
+
+        <!-- ------------------------------ CONTENT SECTION ------------------------------ -->
+        <section>
+
+            <!-- PRODUCTS -->
+            <div class="container-fluid">
+
+                <div class="container" style="background-color: white;"> <br>
+
+                    <h5> Category </h5> <br>
+
+                    <?php
+                        $categories_stmt = $conn->prepare("SELECT DISTINCT product_class FROM productClass_tbl");
+                        $categories_stmt->execute();
+                        $categories = $categories_stmt->fetchAll(PDO::FETCH_ASSOC);
+                    ?>
+
+                    <form action="" method="get" class="text-center">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="category" id="all_categories" value="" <?php if (!isset($_GET['category'])) echo 'checked' ?>>
+                            <label class="form-check-label" for="all_categories"> All categories </label>
+                        </div>
+
+                        <?php foreach ($categories as $category) : ?>
+
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="category" id="<?= $category['product_class'] ?>" value="<?= $category['product_class'] ?>" <?php if ($category['product_class'] == @$_GET['category']) echo 'checked' ?>>
+                                <label class="form-check-label" for="<?= $category['product_class'] ?>"> <?= $category['product_class'] ?> </label>
+                            </div>
+
+                        <?php endforeach; ?>
+
+                        <button type="submit" class="btn btn-primary">Filter</button>
+
+                        <?php if (isset($_GET['category'])) : ?>
+                            <a href="product.php" class="btn btn-secondary">Reset Filter</a>
+                        <?php endif; ?>
+                    </form> <br>
+
+                </div>
+
+                <div class="container" style="background-color: white;">
+
+                    <!-- Products -->
+                    <div class="container my-5"> <br>
+
+                        <a href="#add_product" class="btn btn-light" data-bs-toggle="modal"> <span> <i class='bx bxs-add-to-queue'></i> </span> Add Product</a>
+
+                        <p class="text-center"> <b> Total Products: <?= $total_products ?> </b> </p> <br>
+
+                        <div class="row">
+                            
+                            <?php foreach ($products as $product) : ?>
+                            
+                                <div class="col-md-3 col-sm-6 mb-4">
+                                    
+                                    <a href="product_info.php?page=product_info&id=<?= $product['product_id'] ?>" class="product">
+                                        
+                                        <div class="product-image">
+
+                                            <img class="img-fluid" src="productsImages/<?= $product['product_picture'] ?>" alt="<?= $product['product_name'] ?>">
+            
+                                            <div class="product-info">
+                                                <span class="name"><?= $product['product_name'] ?></span>
+                                                <span class="price">&#8369;<?= $product['product_price'] ?></span>
+                                            </div>
+
+                                        </div>
+
+                                    </a>
+
+                                </div>
+                            
+                            <?php endforeach; ?>
+  
+                        </div>
+
+                        <?php include 'product_modal.php' ?>
+
+                    </div>
+
+                </div>
+
+            </section> <!-- ------------------------------ END OF CONTENT SECTION ------------------------------ -->
+
+            <!-- Include the notification.js file -->
+            <script src="js/notification.js"></script>
+
+        </main> <!-- .................... END OF MAIN BODY CONTENT .................... -->
+
+        <?php include 'includes/javascripts.php'; ?>
+
+        
+    </body>
+
+    </html>

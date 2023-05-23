@@ -1,112 +1,121 @@
 <?php include 'header.php'; ?>
 
-<!-- HEADER (Content inside are Brand Name and Logo) -->
-<header class="header">
+    <!-- ================================================== HEADER (Content inside are Brand Name and Logo) ================================================== -->
+    <header class="header">
 
-    <div class="container-fluid header__container">
+        <div class="container-fluid header__container">
 
-        <img src="images/InitialLogo.png" alt="Logo Image" class="header__img">
-        <a href="#" class="header__logo"> LA BVRGS </a>
+            <img src="../images/InitialLogo.png" alt="Logo Image" class="header__img">
+            <a href="#" class="header__logo"> LA BVRGS </a>
 
-        <div class="header__toggle">
-            <i class='bx bx-menu' id="header-toggle"></i>
+            <div class="header__toggle">
+                <i class='bx bx-menu' id="header-toggle"></i>
+            </div>
+
         </div>
 
-    </div>
-
-</header> <!-- HEADER END -->
+    </header> <!-- ================================================== END OF HEADER (Content inside are Brand Name and Logo) ================================================== -->
 
 
 
-<!-- SIDEBAR -->
-<div class="nav" id="navbar">
 
-    <nav class="nav__container">
 
-        <div>
+    <!-- ================================================== BODY - SIDEBAR ================================================== -->
+    <div class="nav" id="navbar">
 
-            <!-- The Current User Onlined -->
-            <a href="#" class="nav__link nav__logo">
-                <i class='bx bxs-disc nav__icon'></i>
-                <span class="nav__logo-name"> <?php echo $admin['admin_username']; ?> </span>
-            </a>
+        <nav class="nav__container">
 
-            <!-- Menu List -->
-            <div class="nav__list">
+            <div>
 
-                <!-- First Batch of Menu -->
-                <div class="nav__items">
+                <!-- .................... The Current User Onlined .................... -->
+                <a href="#" class="nav__link nav__logo">
+                    <i class='bx bxs-disc nav__icon'></i>
+                    <span class="nav__logo-name"> <?php echo $admin['admin_username']; ?> </span>
+                </a>
 
-                    <!-- Subtitle -->
-                    <h3 class="nav__subtitle"> Home </h3>
+                <!-- .................... Menu List .................... -->
+                <div class="nav__list">
 
-                    <!-- Dashboard Link-->
-                    <a href="dashboard.php" class="nav__link">
-                        <i class='bx bxs-dashboard nav__icon'></i>
-                        <span class="nav__name"> Dashboard </span>
-                    </a>
+                    <!-- First Batch of Menu -->
+                    <div class="nav__items">
 
-                    <!-- Users Link and dropdown for Sub Menus -->
-                    <div class="nav__dropdown">
+                        <!-- Subtitle -->
+                        <h3 class="nav__subtitle"> Home </h3>
 
-                        <a href="#" class="nav__link">
-                            <i class='bx bx-user nav__icon'></i>
-                            <span class="nav__name"> Users </span>
-
-                            <i class='bx bx-chevron-down nav__icon nav__dropdown-icon'></i>
+                        <!-- Dashboard Link-->
+                        <a href="index.php" class="nav__link">
+                            <i class='bx bxs-dashboard nav__icon'></i>
+                            <span class="nav__name"> Dashboard </span>
                         </a>
 
-                        <!-- Dropdown Sub Menu of Users Link -->
-                        <div class="nav__dropdown-collapse">
+                        <!-- Notifcation Link-->
+                        <a href="notification.php" class="nav__link">
+                            <i class='bx bxs-notification nav__icon'></i>
+                            <span class="nav__name"> Notifications </span>
+                        </a>
 
-                            <div class="nav__dropdown-content">
-                                <a href="user_regular.php" class="nav__dropdown-item"> Regular </a>
-                                <a href="user_guest.php" class="nav__dropdown-item"> Guest </a>
-                                <a href="user_admin.php" class="nav__dropdown-item"> Administrators </a>
-                            </div>
+                        <!-- Users Link and dropdown for Sub Menus -->
+                        <div class="nav__dropdown">
 
-                        </div> <!-- END Dropdown Sub Menu of Users Link -->
+                            <a href="#" class="nav__link">
+                                <i class='bx bx-user nav__icon'></i>
+                                <span class="nav__name"> Users </span>
 
-                    </div> <!-- END of Users Link and dropdown for Sub Menus -->
+                                <i class='bx bx-chevron-down nav__icon nav__dropdown-icon'></i>
+                            </a>
 
-                </div> <!-- END of First Batch of Menu -->
+                            <!-- Dropdown Sub Menu of Users Link -->
+                            <div class="nav__dropdown-collapse">
 
-                <!-- Second Batch of Menu -->
-                <div class="nav__items">
+                                <div class="nav__dropdown-content">
+                                    <a href="user_regular.php" class="nav__dropdown-item"> Regular </a>
+                                    <a href="user_guest.php" class="nav__dropdown-item"> Guest </a>
+                                    <a href="user_admin.php" class="nav__dropdown-item"> Administrators </a>
+                                </div>
 
-                    <!-- Subtitle -->
-                    <h3 class="nav__subtitle"> Menu </h3>
+                            </div> <!-- END Dropdown Sub Menu of Users Link -->
 
-                    <!-- Order Status Link -->
-                    <a href="order_status.php" class="nav__link">
-                        <i class='bx bx-cart-alt nav__icon'></i>
-                        <span class="nav__name"> Order Status </span>
-                    </a>
+                        </div> <!-- END of Users Link and dropdown for Sub Menus -->
 
-                    <!-- Sales History Link -->
-                    <a href="sales_history.php" class="nav__link">
-                        <i class='bx bx-history nav__icon'></i>
-                        <span class="nav__name"> Sales History </span>
-                    </a>
+                    </div> <!-- END of First Batch of Menu -->
 
-                    <!-- Inventory Link -->
-                    <a href="product.php" class="nav__link">
-                        <i class='bx bx-package nav__icon'></i>
-                        <span class="nav__name"> Inventory </span>
-                    </a>
+                    <!-- Second Batch of Menu -->
+                    <div class="nav__items">
 
-                </div> <!-- END of Second Batch of Menu -->
+                        <!-- Subtitle -->
+                        <h3 class="nav__subtitle"> Menu </h3>
 
-            </div> <!-- END of Menu List -->
+                        <!-- Order Status Link -->
+                        <a href="order_status.php" class="nav__link">
+                            <i class='bx bx-cart-alt nav__icon'></i>
+                            <span class="nav__name"> Order Status </span>
+                        </a>
 
-        </div>
+                        <!-- Sales History Link -->
+                        <a href="sales_history.php" class="nav__link">
+                            <i class='bx bx-history nav__icon'></i>
+                            <span class="nav__name"> Sales History </span>
+                        </a>
 
-        <a href="../logout.php" class="nav__link nav__logout">
-            <i class='bx bx-log-out-circle nav__icon'></i>
-            <span class="nav__name"> Log Out </span>
-        </a>
+                        <!-- Inventory Link -->
+                        <a href="product.php" class="nav__link">
+                            <i class='bx bx-package nav__icon'></i>
+                            <span class="nav__name"> Inventory </span>
+                        </a>
 
-    </nav>
+                    </div> <!-- END of Second Batch of Menu -->
 
-</div> <!-- SIDE BAR END -->
+                </div> <!-- .................... End of Menu List .................... -->
+
+            </div>
+
+            <!-- Logout -->
+            <a href="../logout.php" class="nav__link nav__logout">
+                <i class='bx bx-log-out-circle nav__icon'></i>
+                <span class="nav__name"> Log Out </span>
+            </a>
+
+        </nav>
+
+    </div> <!-- ================================================== BODY - END OF SIDEBAR ================================================== -->
 
