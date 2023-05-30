@@ -1,4 +1,4 @@
-<?php 
+<?php
 
     include 'includes/session.php';
 
@@ -17,36 +17,43 @@
 
             if ($row['numrows'] > 0)
             {
-                if ($username == $row["admin_username"]) 
+                if ($username == $row["admin_username"])
                 {
                     if (password_verify($password, $row['admin_password']))
                     {
-                        $_SESSION["admin_login"] = $row["admin_id"]; //session name is "user_login"
-                    } 
-                    
-                    else 
-                        $_SESSION['error'] = 'Incorrect Password';
-                }
+                        $_SESSION["admin_login"] = $row["admin_id"];
+                        $_SESSION["admin_type"] = $row["admin_type"];
 
-                else 
+                        if ($row["admin_type"] == "super")
+                        {
+                            header("location: admin_super/index.php");
+                        }
+                        else if ($row["admin_type"] == "admin")
+                        {
+                            header("location: aadmin/index.php");
+                        }
+                    }
+                    else
+                    {
+                        $_SESSION['error'] = 'Incorrect Password';
+                    }
+                }
+                else
                 {
                     $_SESSION['error'] = 'Account not activated.';
                 }
             }
-            
-            else 
+            else
             {
-                $_SESSION['error'] = 'Email not found';
+                $_SESSION['error'] = 'Username not found';
             }
-        } 
-        
+        }
         catch (PDOException $e)
         {
             echo "There is some problem in connection: " . $e->getMessage();
         }
     }
-    
-    else 
+    else
     {
         $_SESSION['error'] = 'Input login credentials first';
     }
@@ -54,4 +61,7 @@
     $pdo->close();
 
     header('location: login.php');
+    
+    exit();
+
 ?>

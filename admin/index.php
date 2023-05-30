@@ -218,10 +218,10 @@ if ($stmt = $conn->prepare('SELECT *, pendingorder_tbl.pendingOrder_id AS pendin
                                         <td data-label="Time"> <?php echo $row['date_created']; ?> </td>
                                         <td data-label="View">
 
-                                            <a href="order_view.php?id=<?php echo $row['order_number'] ?>" class="btn btn-primary btn-sm">
-                                                <span> <i class='bx bx-search-alt'></i>
+                                        <td data-label="View">
+                                            <a href="order_view.php?order_number=<?php echo $row['order_number']; ?>" class="btn btn-primary btn-sm">
+                                                <span><i class='bx bx-search-alt'></i></span>
                                             </a>
-
                                         </td>
 
                                     </tr>

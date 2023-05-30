@@ -4,7 +4,8 @@ include 'includes/header.php';
 include 'includes/menubar.php';
 
 // Retrieve the order status update from the URL parameter
-$status = isset($_GET['status']) ? $_GET['status'] : null;
+$status = $_GET['status'];
+
 // Function to update the order status
 function updateOrderStatus($orderID, $status)
 {
@@ -56,8 +57,7 @@ function updateOrderStatus($orderID, $status)
                                     <th scope="col">quantity</th>
                                     <th scope="col">amount</th>
                                     <th scope="col">date_created</th>
-                                    <th scope="col">status</th>
-                                    <th scope="col">Action</th>
+                                    <th scope="col">Status</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -75,8 +75,7 @@ function updateOrderStatus($orderID, $status)
                                     echo '<td data-label="quantity">' . $row['quantity'] . '</td>';
                                     echo '<td data-label="amount">' . $row['amount'] . '</td>';
                                     echo '<td data-label="date_created">' . $row['date_created'] . '</td>';
-                                    echo '<td data-label="status">' . $row['status'] . '</td>';
-                                    echo '<td data-label="Action">';
+                                    echo '<td data-label="Status">';
                                     // Add the update status button
                                     echo '<button class="btn btn-primary btn-sm" onclick="updateStatus(' . $row['activeOrder_id'] . ')">Update Status</button>';
                                     echo '</td>';
@@ -117,7 +116,7 @@ function updateOrderStatus($orderID, $status)
             }).then((result) => {
                 if (result.isConfirmed) {
                     // Make an AJAX request to update_order_status.php
-                    fetch(`order_update.php?activeOrder_id=${orderID}&status=${result.value}`)
+                    fetch(`update_order_status.php?activeOrder_id=${orderID}&status=${result.value}`)
                         .then((response) => response.json())
                         .then((data) => {
                             if (data.success) {

@@ -117,7 +117,7 @@ function updateOrderStatus($orderID, $status)
             }).then((result) => {
                 if (result.isConfirmed) {
                     // Make an AJAX request to update_order_status.php
-                    fetch(`order_update.php?activeOrder_id=${orderID}&status=${result.value}`)
+                    fetch(`order/order_update.php?activeOrder_id=${orderID}&status=${result.value}`)
                         .then((response) => response.json())
                         .then((data) => {
                             if (data.success) {
