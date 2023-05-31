@@ -1,51 +1,39 @@
 11 Inventory System Log-In
-As  admin
-I want to login
-So that I can accept pending orders
-failed
-
-Done na /
+    As  admin
+    I want to login
+    So that I can accept pending orders
+    Failed = Success na ni Ange
 
 
 
-
-12
-Pending Orders
-
-
-
-As admin
-I want to accept pending orders
-So I can accept and process pending orders of customers
-failed
+12 Pending Orders
+    As admin
+    I want to accept pending orders
+    So I can accept and process pending orders of customers
+    Failed = Success na ni Ange
 
 
 
-
-13
-Order Status
-As admin
-I want to manage the order status
- 
-So that I can manage the status of orders if:
-a.   	Orders is approved
-b.   	Orders is in process
-c.   	Orders is out for delivery
-d.   	Delivery is done
-If delivery is done, the transaction will be stored in transaction history
- 
-failed 
+13 Order Status
+    As admin
+    I want to manage the order status
+    So that I can manage the status of orders if:
+        a.   	Orders is approved /
+        b.   	Orders is in process /
+        c.   	Orders is out for delivery /
+        d.   	Delivery is done /
+    If delivery is done, the transaction will be stored in transaction history
+    Failed = Success na ni Ange
 
 
 
 
 
-14
-Transaction History
-As admin
-I want to view all the history of transaction
-So I can go and look back to it if  it is needed
-failed 
+14 Transaction History
+    As admin
+    I want to view all the history of transaction
+    So I can go and look back to it if  it is needed
+    Failed = Success na ni Ange
 
 
 

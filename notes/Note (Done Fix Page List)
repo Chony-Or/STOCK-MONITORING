@@ -1,3 +1,5 @@
+DONE PAGES LIST
+
 index.php
 login.php
 logout.php
@@ -11,3 +13,7 @@ SUPER ADMIN FOLDER:
 index.php
 index_fetch_chart_data.php
 order_view.php
+order_accept.php
+order_remove.php
+order_status.php
+order_update.php

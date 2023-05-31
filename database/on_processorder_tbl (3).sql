@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 28, 2023 at 08:13 PM
+-- Generation Time: May 31, 2023 at 10:05 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -34,7 +34,7 @@ CREATE TABLE `on_processorder_tbl` (
   `pendingOrder_id` int(255) NOT NULL,
   `quantity` int(255) NOT NULL,
   `amount` double(255,3) NOT NULL,
-  `status` varchar(20) NOT NULL DEFAULT 'ongoing',
+  `status` varchar(20) NOT NULL DEFAULT 'In Process',
   `date_created` datetime NOT NULL DEFAULT current_timestamp(),
   `is_active` tinyint(4) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;

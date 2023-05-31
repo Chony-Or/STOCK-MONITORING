@@ -28,8 +28,12 @@
             // Display the customer name and order number outside the table
             echo    '<div class="container py-5">';
 
-            echo        '<h5><b>Order Number: </b></h5><p>' . $orderSummary[0]['order_number'] . '</p>';
-            echo        '<h5><b>Customer Name: </b></h5><p>' . $orderSummary[0]['customer_name'] . '</p>';
+            echo        '<div class="container py-4" style="background-color: white;">';
+            
+            echo            '<h5 class="ms-4"><b>Order Number: </b></h5><p class="ms-4">' . $orderSummary[0]['order_number'] . '</p>';
+            echo            '<h5 class="ms-4"><b>Customer Name: </b></h5><p class="ms-4">' . $orderSummary[0]['customer_name'] . '</p>';
+
+            echo        '</div> <br>';
 
             // Display the order summary table
             echo        '<div class="container-fluid" style="background-color: white;">';
@@ -107,8 +111,37 @@
 
         <main>
 
+            <!-- ------------------------------ HEADER SECTION ------------------------------ -->
+            <section class="py-4 section-1">
+
+                <div class="container py-1">
+
+                    <div class="row text-center">
+
+                        <div class="col-lg-12 mx-auto">
+                            <h1> <b> Order View </b> </h1>
+                            <p>View the orders of the Customer</p>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section> <!-- ------------------------------ HEADER SECTION END ------------------------------ -->
+
+
+
+
+
+
+
+
+
+
             <section>
+
                 <?php displayOrderSummary($orderNumber); ?>
+
             </section> <br><br>
 
         </main>
@@ -133,7 +166,7 @@
                 {
                     if (result.isConfirmed)
                     {
-                        // Make an AJAX request to remove_order.php
+                        // Make an AJAX request to order_remove.php
                         fetch(`order_remove.php?pendingOrder_id=${orderId}`)
                         .then((response) => response.json())
                         .then((data) =>
@@ -188,7 +221,7 @@
                 {
                     if (result.isConfirmed)
                     {
-                        // Make an AJAX request to accept_all_orders.php
+                        // Make an AJAX request to orders_accept.php
                         fetch('orders_accept.php')
                         .then((response) => response.json())
                         .then((data) =>
@@ -203,8 +236,7 @@
                                 })
                                 .then(() =>
                                 {
-                                    // Redirect to a new page or perform any additional actions
-                                    // Here, we are redirecting to the home page
+                                    // Redirect to a new page
                                     window.location.href = 'order_status.php';
                                 });
                             }

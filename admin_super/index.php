@@ -34,7 +34,7 @@ if ($stmt = $conn->prepare('SELECT *, pendingorder_tbl.pendingOrder_id AS pendin
                         <div class="col-lg-12 mx-auto">
 
                             <h1> <b> DASHBOARD </b> </h1>
-                            <p class="text-muted lead"> Welcome to Dashboard, you have login as a Super Admin </p>
+                            <p class="text-muted lead"> Welcome to the Dashboard, you have login as a Super Admin </p>
                             <p> This page consist of Overviews, Pending Orders and Chart that shows the stock of the products </p>
 
                         </div>
@@ -45,7 +45,7 @@ if ($stmt = $conn->prepare('SELECT *, pendingorder_tbl.pendingOrder_id AS pendin
 
             </section> <br> <!-- ------------------------------ End of Title and Search Bar ------------------------------ -->
 
-            <p class="text-start"><?php echo date('l') . ' ' . date('d') . ', ' . date('Y'); ?></p> <!-- DATE -->
+            <p class="text-start"> <b> <?php echo date('l') . ' ' . date('d') . ', ' . date('Y'); ?> </b></p> <!-- DATE -->
 
 
 
@@ -78,26 +78,29 @@ if ($stmt = $conn->prepare('SELECT *, pendingorder_tbl.pendingOrder_id AS pendin
 
                                     <!-- No. of Purchase -->
                                     <span class="badge d-flex align-items-center p-1 pe-2 text-success-emphasis bg-success-subtle border border-success-subtle rounded-pill">
-                                        <img src="../images/Purchase.png" class="rounded-circle me-1" width="35" height="35" alt="..."> Purchase:
-                                        <?php
-                                            $stmt = $conn->prepare("SELECT *, COUNT(*) AS numrows FROM transachistory_tbl");
-                                            $stmt->execute();
-                                            $urow =  $stmt->fetch();
+                                        <img src="../images/Purchase.png" class="rounded-circle me-1" width="35" height="35" alt="..."> Purchase
 
-                                            echo "<p class='card-text'>" . $urow['numrows'] . "</p>";
-                                        ?>
+                                            <?php
+                                                $stmt = $conn->prepare("SELECT *, COUNT(*) AS numrows FROM transachistory_tbl");
+                                                $stmt->execute();
+                                                $urow =  $stmt->fetch();
+
+                                                echo "<p class='card-text'> : "  . $urow['numrows'] . "</p>";
+                                            ?>
+
                                     </span> <br> <br>
 
                                     <!-- Total Products -->
                                     <span class="badge d-flex align-items-center p-1 pe-2 text-warning-emphasis bg-warning-subtle border border-warning-subtle rounded-pill">
-                                        <img src="../images/Product.png" class="rounded-circle me-1" width="35" height="35" alt="..."> Total Products:
-                                        <?php
-                                            $stmt = $conn->prepare("SELECT *, COUNT(*) AS numrows FROM product_tbl");
-                                            $stmt->execute();
-                                            $urow =  $stmt->fetch();
+                                        <img src="../images/Product.png" class="rounded-circle me-1" width="35" height="35" alt="..."> Total Products
 
-                                            echo "<p class='card-text'>" . $urow['numrows'] . "</p>";
-                                        ?>
+                                            <?php
+                                                $stmt = $conn->prepare("SELECT *, COUNT(*) AS numrows FROM product_tbl");
+                                                $stmt->execute();
+                                                $urow =  $stmt->fetch();
+
+                                                echo "<p class='card-text'> : " . $urow['numrows'] . "</p>";
+                                            ?>
                                     </span>
 
                                 </div>
@@ -107,26 +110,28 @@ if ($stmt = $conn->prepare('SELECT *, pendingorder_tbl.pendingOrder_id AS pendin
 
                                     <!-- Total Users -->
                                     <span class="badge d-flex align-items-center p-1 pe-2 text-primary-emphasis bg-primary-subtle border border-primary-subtle rounded-pill">
-                                        <img src="../images/Users.png" class="rounded-circle me-1" width="35" height="35" alt="..."> Total Users:
-                                        <?php
-                                            $stmt = $conn->prepare("SELECT *, COUNT(*) AS numrows FROM customer_tbl");
-                                            $stmt->execute();
-                                            $urow =  $stmt->fetch();
+                                        <img src="../images/Users.png" class="rounded-circle me-1" width="35" height="35" alt="..."> Total Users
 
-                                            echo "<p class='card-text'>" . $urow['numrows'] . "</p>";
-                                        ?>
+                                            <?php
+                                                $stmt = $conn->prepare("SELECT *, COUNT(*) AS numrows FROM customer_tbl");
+                                                $stmt->execute();
+                                                $urow =  $stmt->fetch();
+
+                                                echo "<p class='card-text'> : " . $urow['numrows'] . "</p>";
+                                            ?>
                                     </span> <br> <br>
 
                                     <!-- Pending Orders -->
                                     <span class="badge d-flex align-items-center p-1 pe-2 text-danger-emphasis bg-danger-subtle border border-danger-subtle rounded-pill">
-                                        <img src="../images/Pending.png" class="rounded-circle me-1" width="35" height="35" alt="..."> Pending Orders:
-                                        <?php
-                                            $stmt = $conn->prepare("SELECT *, COUNT(*) AS numrows FROM pendingorder_tbl");
-                                            $stmt->execute();
-                                            $urow =  $stmt->fetch();
+                                        <img src="../images/Pending.png" class="rounded-circle me-1" width="35" height="35" alt="..."> Pending Orders
+                                        
+                                            <?php
+                                                $stmt = $conn->prepare("SELECT *, COUNT(*) AS numrows FROM pendingorder_tbl");
+                                                $stmt->execute();
+                                                $urow =  $stmt->fetch();
 
-                                            echo "<p class='card-text'>" . $urow['numrows'] . "</p>";
-                                        ?>
+                                                echo "<p class='card-text'> : " . $urow['numrows'] . "</p>";
+                                            ?>
                                     </span>
 
                                 </div>
@@ -213,17 +218,18 @@ if ($stmt = $conn->prepare('SELECT *, pendingorder_tbl.pendingOrder_id AS pendin
                 <!-- Low Stock Preview -->
                 <span class="badge d-flex align-items-center p-1 pe-2 text-danger-emphasis bg-danger-subtle border border-danger-subtle rounded-pill" data-bs-toggle="modal" data-bs-target="#lowStockModal">
 
-                    <img src="../images/Low Stock.png" class="rounded-circle me-1" width="35" height="35" alt="..."> Low Stock: 
-                        <?php
-                            $stmt = $conn->prepare("SELECT COUNT(*) AS numrows FROM product_tbl WHERE product_stock < 10");
-                            $stmt->execute();
-                            $urow =  $stmt->fetch();
+                    <img src="../images/Low Stock.png" class="rounded-circle me-1" width="45" height="45" alt="..."> Low Stock
+                    
+                        <span class="vr mx-2"></span>
+                            <?php
+                                $stmt = $conn->prepare("SELECT COUNT(*) AS numrows FROM product_tbl WHERE product_stock < 10");
+                                $stmt->execute();
+                                $urow =  $stmt->fetch();
 
-                            echo "<p class='card-text'>" . $urow['numrows'] . "</p>";
-                        ?>
+                                echo "<p class='card-text'>" . $urow['numrows'] . "</p>";
+                            ?>
 
                 </span> <br>
-
 
                 <!-- Modal -->
                 <?php

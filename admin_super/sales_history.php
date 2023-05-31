@@ -10,6 +10,33 @@
     <!-- .................... MAIN BODY CONTENT .................... -->
     <main>
 
+        <!-- ------------------------------ Title and Search Bar ------------------------------ -->
+        <section class="py-4 section-1">
+
+            <div class="container py-1">
+
+                <div class="row text-center">
+
+                    <div class="col-lg-12 mx-auto">
+
+                        <h1> <b> Sales History </b> </h1>
+                        <p>History of Received and Cancelled Orders</p>
+                        <div id="wrap">
+
+                            <form action="" autocomplete="on">
+                                <input id="search" name="search" type="text" placeholder="What're we looking for ?" value="<?php echo $search_query; ?>"><input id="search_submit" value="Rechercher" type="submit">
+                            </form>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section> <!-- ------------------------------ End of Title and Search Bar ------------------------------ -->
+
         <!-- ------------------------------ CONTENT SECTION ------------------------------ -->
         <section>
 
