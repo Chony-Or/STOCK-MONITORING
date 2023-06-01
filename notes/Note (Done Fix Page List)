@@ -12,8 +12,8 @@ session.php
 SUPER ADMIN FOLDER:
 index.php
 index_fetch_chart_data.php
-order_view.php
-order_accept.php
-order_remove.php
-order_status.php
-order_update.php
+order_view.php (adjust) /
+order_accept.php (adjust) /
+order_remove.php (adjust) /
+order_status.php (adjust) /
+order_update.php (adjust) /

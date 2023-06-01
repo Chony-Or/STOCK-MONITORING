@@ -99,7 +99,7 @@
 
                                     <?php
                                         $conn = $pdo->open();
-                                        $stmt = $conn->query('SELECT op.activeOrder_id, p.product_name, c.customer_name, op.quantity, op.amount, op.date_created, op.status
+                                        $stmt = $conn->query('SELECT op.activeOrder_id, p.product_name, c.customer_firstname, c.customer_lastname, op.quantity, op.amount, op.date_created, op.status
                                                         FROM on_processorder_tbl op
                                                         INNER JOIN customer_tbl c ON op.customer_id = c.customer_id
                                                         INNER JOIN product_tbl p ON op.product_id = p.product_id');
@@ -110,7 +110,7 @@
 
                                             echo    '<td data-label="ID">' . $row['activeOrder_id'] . '</td>';
                                             echo    '<td data-label="Product">' . $row['product_name'] . '</td>';
-                                            echo    '<td data-label="Customer">' . $row['customer_name'] . '</td>';
+                                            echo    '<td data-label="Customer">' . $row['customer_firstname'] . ' ' . $row['customer_lastname'] . '</td>';
                                             echo    '<td data-label="Quantity">' . $row['quantity'] . '</td>';
                                             echo    '<td data-label="Amount">' . $row['amount'] . '</td>';
 
@@ -178,7 +178,6 @@
                         <!-- Sales History Link -->
                         <a href="sales_history.php" class="nav__link text-end">
                             <i class='bx bx-history nav__icon'></i> Go to Sales History
-                            <span class="nav__name"> Sales History </span>
                         </a>
 
                     </div>

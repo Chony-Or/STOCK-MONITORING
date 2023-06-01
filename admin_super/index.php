@@ -173,7 +173,7 @@ if ($stmt = $conn->prepare('SELECT *, pendingorder_tbl.pendingOrder_id AS pendin
                                             <tr>
 
                                                 <td data-label="Order No."><?php echo $row['order_number']; ?></td>
-                                                <td data-label="Name"><?php echo $row['customer_name']; ?></td>
+                                                <td data-label="Name"><?php echo $row['customer_firstname'] . ' ' . $row['customer_lastname']; ?></td>
                                                 <td data-label="Time"><?php echo $row['date_created']; ?></td>
                                                 <td data-label="View">
                                                     <a href="order_view.php?order_number=<?php echo $row['order_number']; ?>" class="btn btn-primary btn-sm">

@@ -211,54 +211,60 @@
             }
         
             // Function to accept all orders
-            // Function to accept all orders
-function acceptAllOrders() {
-    Swal.fire({
-        title: 'Are you sure?',
-        text: 'You are about to accept all orders',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonText: 'Accept All',
-        cancelButtonText: 'Cancel',
-    }).then((result) => {
-        if (result.isConfirmed) {
-            // Make an AJAX request to orders_accept.php
-            fetch('orders_accept.php?order_number=<?php echo $orderNumber; ?>')
-                .then((response) => response.json())
-                .then((data) => {
-                    if (data.success) {
-                        // Display success notification
-                        Swal.fire({
-                            title: 'Orders Accepted',
-                            text: 'All orders have been accepted successfully',
-                            icon: 'success',
-                        }).then(() => {
-                            // Redirect to order_status.php
-                            window.location.href = 'order_status.php';
-                        });
-                    } else {
-                        // Display error notification
-                        Swal.fire({
-                            title: 'Error',
-                            text: data.message,
-                            icon: 'error',
+            function acceptAllOrders()
+            {
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: 'You are about to accept all orders',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Accept All',
+                    cancelButtonText: 'Cancel',
+                }).then((result) =>
+                {
+                    if (result.isConfirmed)
+                    {
+                        // Make an AJAX request to orders_accept.php
+                        fetch('orders_accept.php')
+                        .then((response) => response.json())
+                        .then((data) =>
+                        {
+                            if (data.success)
+                            {
+                                // Display success notification
+                                Swal.fire({
+                                    title: 'Orders Accepted',
+                                    text: 'All orders have been accepted successfully',
+                                    icon: 'success',
+                                })
+                                .then(() =>
+                                {
+                                    // Redirect to a new page
+                                    window.location.href = 'order_status.php';
+                                });
+                            }
+                            else
+                            {
+                                // Display error notification
+                                Swal.fire({
+                                    title: 'Error',
+                                    text: data.message,
+                                    icon: 'error',
+                                });
+                            }
+                        })
+                        .catch((error) =>
+                        {
+                            // Display error notification
+                            Swal.fire({
+                                title: 'Error',
+                                text: 'An error occurred while accepting the orders',
+                                icon: 'error',
+                            });
                         });
                     }
-                })
-                .catch((error) => {
-                    // Display error notification
-                    Swal.fire({
-                        title: 'Error',
-                        text: 'An error occurred while accepting the orders',
-                        icon: 'error',
-                    });
                 });
-        }
-    });
-}
-
-
-
+            }
 
         </script>
 

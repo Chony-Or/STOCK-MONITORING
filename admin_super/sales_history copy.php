@@ -4,12 +4,6 @@ include 'includes/session.php';
 include 'includes/header.php';
 include 'includes/menubar.php';
 
-// Define the number of results per page
-$resultsPerPage = 20;
-
-// Retrieve the current page number from the URL parameters
-$currentPage = isset($_GET['page']) ? intval($_GET['page']) : 1;
-
 // Initialize the search query variable
 $search_query = '';
 
@@ -50,32 +44,7 @@ function isSalesHistoryFiltered($searchQuery)
     return !empty($searchQuery);
 }
 
-// Function to generate the sorting URL
-function generateSortUrl($column, $currentSort, $currentOrder)
-{
-    $newOrder = ($currentSort === $column && $currentOrder === 'asc') ? 'desc' : 'asc';
-    return "sales_history.php?sort=$column&order=$newOrder";
-}
-
-// Retrieve the current sort column and order from the URL parameters
-$currentSort = isset($_GET['sort']) ? $_GET['sort'] : 'transac_id';
-$currentOrder = isset($_GET['order']) ? $_GET['order'] : 'asc';
-
-// Function to generate the sort icon based on the current sort column and order
-function generateSortIcon($column, $currentSort, $currentOrder)
-{
-    if ($currentSort === $column) {
-        $icon = ($currentOrder === 'asc') ? 'fa-sort-up' : 'fa-sort-down';
-        return "<i class='fas $icon'></i>";
-    }
-    return '';
-}
-
 ?>
-
-<!-- Include the Font Awesome CSS library -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-
 
 <!-- ================================================== BODY ================================================== -->
 
@@ -140,41 +109,13 @@ function generateSortIcon($column, $currentSort, $currentOrder)
                             <thead>
 
                                 <tr>
-                                    <th scope="col">
-                                        <a href="sales_history.php?sort=transac_id&order=<?php echo ($currentSort === 'transac_id' && $currentOrder === 'asc') ? 'desc' : 'asc'; ?>">
-                                            Transaction Number <?php echo ($currentSort === 'transac_id') ? ($currentOrder === 'asc' ? '<i class="fas fa-sort-up"></i>' : '<i class="fas fa-sort-down"></i>') : ''; ?>
-                                        </a>
-                                    </th>
-                                    <th scope="col">
-                                        <a href="sales_history.php?sort=customer_firstname,customer_lastname&order=<?php echo ($currentSort === 'customer_fisrtname' . 'customer_lastname' && $currentOrder === 'asc') ? 'desc' : 'asc'; ?>">
-                                            Customer Name <?php echo ($currentSort === 'customer_fisrtname' . 'customer_lastname') ? ($currentOrder === 'asc' ? '<i class="fas fa-sort-up"></i>' : '<i class="fas fa-sort-down"></i>') : ''; ?>
-                                        </a>
-                                    </th>
-                                    <th scope="col">
-                                        <a href="sales_history.php?sort=product_name&order=<?php echo ($currentSort === 'product_name' && $currentOrder === 'asc') ? 'desc' : 'asc'; ?>">
-                                            Product Name <?php echo ($currentSort === 'product_name') ? ($currentOrder === 'asc' ? '<i class="fas fa-sort-up"></i>' : '<i class="fas fa-sort-down"></i>') : ''; ?>
-                                        </a>
-                                    </th>
-                                    <th scope="col">
-                                        <a href="sales_history.php?sort=quantity&order=<?php echo ($currentSort === 'quantity' && $currentOrder === 'asc') ? 'desc' : 'asc'; ?>">
-                                            Quantity <?php echo ($currentSort === 'quantity') ? ($currentOrder === 'asc' ? '<i class="fas fa-sort-up"></i>' : '<i class="fas fa-sort-down"></i>') : ''; ?>
-                                        </a>
-                                    </th>
-                                    <th scope="col">
-                                        <a href="sales_history.php?sort=amount&order=<?php echo ($currentSort === 'amount' && $currentOrder === 'asc') ? 'desc' : 'asc'; ?>">
-                                            Amount <?php echo ($currentSort === 'amount') ? ($currentOrder === 'asc' ? '<i class="fas fa-sort-up"></i>' : '<i class="fas fa-sort-down"></i>') : ''; ?>
-                                        </a>
-                                    </th>
-                                    <th scope="col">
-                                        <a href="sales_history.php?sort=status&order=<?php echo ($currentSort === 'status' && $currentOrder === 'asc') ? 'desc' : 'asc'; ?>">
-                                            Status <?php echo ($currentSort === 'status') ? ($currentOrder === 'asc' ? '<i class="fas fa-sort-up"></i>' : '<i class="fas fa-sort-down"></i>') : ''; ?>
-                                        </a>
-                                    </th>
-                                    <th scope="col">
-                                        <a href="sales_history.php?sort=date_created&order=<?php echo ($currentSort === 'date_created' && $currentOrder === 'asc') ? 'desc' : 'asc'; ?>">
-                                            Date <?php echo ($currentSort === 'date_created') ? ($currentOrder === 'asc' ? '<i class="fas fa-sort-up"></i>' : '<i class="fas fa-sort-down"></i>') : ''; ?>
-                                        </a>
-                                    </th>
+                                    <th scope="col">Transaction Number</th>
+                                    <th scope="col">Customer</th>
+                                    <th scope="col">Product</th>
+                                    <th scope="col">Quantity</th>
+                                    <th scope="col">Amount</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col">Date</th>
                                 </tr>
 
                             </thead> <!-- End of Table Headers -->
@@ -191,21 +132,6 @@ function generateSortIcon($column, $currentSort, $currentOrder)
                                                             FROM transachistory_tbl t
                                                             INNER JOIN customer_tbl c ON t.customer_id = c.customer_id
                                                             INNER JOIN product_tbl p ON t.product_id = p.product_id';
-
-                                    // Check if a sort parameter is present in the URL
-                                    $validSorts = ['transac_id', 'customer_firstname', 'customer_lastname', 'product_name', 'quantity', 'amount', 'status', 'date_created'];
-                                    $validOrders = ['asc', 'desc'];
-                                    $currentSort = (isset($_GET['sort']) && in_array($_GET['sort'], $validSorts)) ? $_GET['sort'] : 'transac_id';
-                                    $currentOrder = (isset($_GET['order']) && in_array($_GET['order'], $validOrders)) ? $_GET['order'] : 'asc';
-
-                                    // Add the sort parameters to the query
-                                    $selectQuery .= ' ORDER BY ' . $currentSort . ' ' . $currentOrder;
-
-                                    // Add pagination to the query
-                                    $offset = ($currentPage - 1) * $resultsPerPage;
-                                    $selectQuery .= ' LIMIT ' . $resultsPerPage . ' OFFSET ' . $offset;
-
-
                                     $stmt = $conn->prepare($selectQuery);
                                     $stmt->execute();
                                     $salesHistory = $stmt->fetchAll();
@@ -214,12 +140,6 @@ function generateSortIcon($column, $currentSort, $currentOrder)
                                     if (!empty($search_query)) {
                                         $salesHistory = filterSalesHistory($salesHistory, $search_query);
                                     }
-
-                                    // Count the total number of results for pagination
-                                    $countQuery = 'SELECT COUNT(*) as total FROM transachistory_tbl';
-                                    $countStmt = $conn->prepare($countQuery);
-                                    $countStmt->execute();
-                                    $totalCount = $countStmt->fetch()['total'];
 
 
                                     foreach ($salesHistory as $sale) {
@@ -257,21 +177,6 @@ function generateSortIcon($column, $currentSort, $currentOrder)
                             </tbody> <!-- End of Table Body -->
 
                         </table> <!-- END OF TABLE -->
-
-                        <!-- Display pagination links -->
-                        <div class="pagination">
-                            <?php if ($currentPage > 1) : ?>
-                                <a href="sales_history.php?page=<?php echo ($currentPage - 1); ?>">Previous</a>
-                            <?php endif; ?>
-
-                            <?php for ($i = 1; $i <= ceil($totalCount / $resultsPerPage); $i++) : ?>
-                                <a href="sales_history.php?page=<?php echo $i; ?>" <?php echo ($currentPage === $i) ? 'class="active"' : ''; ?>><?php echo $i; ?></a>
-                            <?php endfor; ?>
-
-                            <?php if ($currentPage < ceil($totalCount / $resultsPerPage)) : ?>
-                                <a href="sales_history.php?page=<?php echo ($currentPage + 1); ?>">Next</a>
-                            <?php endif; ?>
-                        </div>
 
                     </div> <!-- END OF CONTAINER OF TABLE -->
 
