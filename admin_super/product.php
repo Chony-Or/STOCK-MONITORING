@@ -1,74 +1,84 @@
 <?php include 'includes/session.php'; ?>
 
 <?php
-$category = isset($_GET['category']) ? $_GET['category'] : '';
-$search_query = isset($_GET['search']) ? $_GET['search'] : '';
 
-// Prepare the base SQL query
-$sql = "SELECT * FROM product_tbl JOIN productclass_tbl ON product_tbl.productClass_id = productclass_tbl.productClass_id ORDER BY product_tbl.product_id DESC";
+    $category = isset($_GET['category']) ? $_GET['category'] : '';
+    $search_query = isset($_GET['search']) ? $_GET['search'] : '';
 
-// Prepare the search condition
-$searchCondition = '';
-$searchParams = [];
+    // Prepare the base SQL query
+    $sql = "SELECT * FROM product_tbl JOIN productclass_tbl ON product_tbl.productClass_id = productclass_tbl.productClass_id";
 
-if (!empty($search_query)) {
-    $searchCondition = " WHERE ";
-    $searchCondition .= "product_tbl.product_id LIKE CONCAT('%', :search_query, '%') OR ";
-    $searchCondition .= "productclass_tbl.productClass_id LIKE CONCAT('%', :search_query, '%') OR ";
-    $searchCondition .= "product_tbl.product_price LIKE CONCAT('%', :search_query, '%') OR ";
-    $searchCondition .= "product_tbl.product_name LIKE CONCAT('%', :search_query, '%') OR ";
-    $searchCondition .= "product_tbl.product_stock LIKE CONCAT('%', :search_query, '%') OR ";
-    $searchCondition .= "product_tbl.product_details LIKE CONCAT('%', :search_query, '%') OR ";
-    $searchCondition .= "product_tbl.product_code LIKE CONCAT('%', :search_query, '%') OR ";
-    $searchCondition .= "product_tbl.date_created LIKE CONCAT('%', :search_query, '%') OR ";
-    $searchCondition .= "product_tbl.date_updated LIKE CONCAT('%', :search_query, '%')";
+    // Prepare the search condition
+    $searchCondition = '';
+    $searchParams = [];
 
-    // Add search query parameter
-    $searchParams = [':search_query' => $search_query];
-}
+    if (!empty($search_query))
+    {
+        $searchCondition = " WHERE ";
+        $searchCondition .= "product_tbl.product_id LIKE CONCAT('%', :search_query, '%') OR ";
+        $searchCondition .= "productclass_tbl.productClass_id LIKE CONCAT('%', :search_query, '%') OR ";
+        $searchCondition .= "product_tbl.product_price LIKE CONCAT('%', :search_query, '%') OR ";
+        $searchCondition .= "product_tbl.product_name LIKE CONCAT('%', :search_query, '%') OR ";
+        $searchCondition .= "product_tbl.product_stock LIKE CONCAT('%', :search_query, '%') OR ";
+        $searchCondition .= "product_tbl.product_details LIKE CONCAT('%', :search_query, '%') OR ";
+        $searchCondition .= "product_tbl.product_code LIKE CONCAT('%', :search_query, '%') OR ";
+        $searchCondition .= "product_tbl.date_created LIKE CONCAT('%', :search_query, '%') OR ";
+        $searchCondition .= "product_tbl.date_updated LIKE CONCAT('%', :search_query, '%')";
 
-// Prepare the final SQL query
-$stmt = $conn->prepare($sql . $searchCondition);
-$stmt->execute($searchParams);
-$products = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        // Add search query parameter
+        $searchParams = [':search_query' => $search_query];
+    }
 
-// Get the total number of products
-$total_products = $stmt->rowCount();
+    // Prepare the final SQL query
+    $stmt = $conn->prepare($sql . $searchCondition);
+    $stmt->execute($searchParams);
+    $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    // Get the total number of products
+    $total_products = $stmt->rowCount();
+
 ?>
 
 
 <?php include 'includes/header.php'; ?>
 <?php include 'includes/menubar.php'; ?>
+
 <link rel="stylesheet" href="css/product.css"> <!-- Style for Product -->
 
 <style>
-.product-info {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-}
 
-.product-info .price {
-  margin-top: auto;
-}
+    .product-info
+    {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
 
-.product-image {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 250px; /* set a fixed height */
-}
+    .product-info .price
+    {
+        margin-top: auto;
+    }
 
-.product-image img {
-  max-width: 100%;
-  height: 200px; /* set a fixed width for the image */
-}
+    .product-image
+    {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 250px; /* set a fixed height */
+    }
 
-.product-info {
-  margin-top: auto; /* Push the product name and price to the bottom of the container */
-  text-align: center; /* Center the product name and price */
-}
+    .product-image img
+    {
+        max-width: 100%;
+        height: 200px; /* set a fixed width for the image */
+    }
+
+    .product-info
+    {
+        margin-top: auto; /* Push the product name and price to the bottom of the container */
+        text-align: center; /* Center the product name and price */
+    }
 
 </style>
 <!-- ================================================== BODY ================================================== -->
