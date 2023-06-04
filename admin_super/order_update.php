@@ -16,7 +16,8 @@
     {
         global $pdo;
 
-        try {
+        try
+        {
             $conn = $pdo->open();
 
             // Check if the status is "Received"
@@ -30,7 +31,7 @@
 
                 // Insert the order details into the transachistory_tbl with status as "Received"
                 $insertQuery = 'INSERT INTO transachistory_tbl (activeOrder_id, product_id, customer_id, quantity, amount, date_created, status)
-                                VALUES (:activeOrder_id, :product_id, :customer_id, :quantity, :amount, :date_created, :status)';
+                            VALUES (:activeOrder_id, :product_id, :customer_id, :quantity, :amount, :date_created, :status)';
                 $stmt = $conn->prepare($insertQuery);
                 $stmt->execute([
                     'activeOrder_id' => $order['activeOrder_id'],
@@ -46,9 +47,14 @@
                 $deleteQuery = 'DELETE FROM on_processorder_tbl WHERE activeOrder_id = :orderID';
                 $stmt = $conn->prepare($deleteQuery);
                 $stmt->execute(['orderID' => $orderID]);
+
+                // Update the notification_tbl
+                $updateNotifQuery = 'UPDATE notification_tbl SET notif_context = :notifContext WHERE pendingOrder_id = :orderID';
+                $stmt = $conn->prepare($updateNotifQuery);
+                $stmt->execute(['notifContext' => 'Received', 'orderID' => $orderID]);
             }
 
-            // Check if the status is "Cancelles"
+            // Check if the status is "Cancelled"
             elseif ($status == 'cancelled')
             {
                 // Retrieve the order details from the on_processorder_tbl
@@ -59,7 +65,7 @@
 
                 // Insert the order details into the transachistory_tbl with status as "Cancelled"
                 $insertQuery = 'INSERT INTO transachistory_tbl (activeOrder_id, product_id, customer_id, quantity, amount, date_created, status)
-                                VALUES (:activeOrder_id, :product_id, :customer_id, :quantity, :amount, :date_created, :status)';
+                            VALUES (:activeOrder_id, :product_id, :customer_id, :quantity, :amount, :date_created, :status)';
                 $stmt = $conn->prepare($insertQuery);
                 $stmt->execute([
                     'activeOrder_id' => $order['activeOrder_id'],
@@ -75,6 +81,11 @@
                 $deleteQuery = 'DELETE FROM on_processorder_tbl WHERE activeOrder_id = :orderID';
                 $stmt = $conn->prepare($deleteQuery);
                 $stmt->execute(['orderID' => $orderID]);
+
+                // Update the notification_tbl
+                $updateNotifQuery = 'UPDATE notification_tbl SET notif_context = :notifContext WHERE pendingOrder_id = :orderID';
+                $stmt = $conn->prepare($updateNotifQuery);
+                $stmt->execute(['notifContext' => 'Cancelled', 'orderID' => $orderID]);
             }
 
             // Check if the status is "Delivery"
@@ -85,6 +96,11 @@
                 $updateQuery = 'UPDATE on_processorder_tbl SET status = :status WHERE activeOrder_id = :orderID';
                 $stmt = $conn->prepare($updateQuery);
                 $stmt->execute(['status' => 'Out for Delivery', 'orderID' => $orderID]);
+
+                // Update the notification_tbl
+                $updateNotifQuery = 'UPDATE notification_tbl SET notif_context = :notifContext WHERE pendingOrder_id = :orderID';
+                $stmt = $conn->prepare($updateNotifQuery);
+                $stmt->execute(['notifContext' => 'Out for Delivery', 'orderID' => $orderID]);
             }
 
             // Check if the status is "In Process"
@@ -94,6 +110,11 @@
                 $updateQuery = 'UPDATE on_processorder_tbl SET status = :status WHERE activeOrder_id = :orderID';
                 $stmt = $conn->prepare($updateQuery);
                 $stmt->execute(['status' => 'In Process', 'orderID' => $orderID]);
+
+                // Update the notification_tbl
+                $updateNotifQuery = 'UPDATE notification_tbl SET notif_context = :notifContext WHERE pendingOrder_id = :orderID';
+                $stmt = $conn->prepare($updateNotifQuery);
+                $stmt->execute(['notifContext' => 'In Process', 'orderID' => $orderID]);
             }
             else
             {
@@ -101,6 +122,11 @@
                 $updateQuery = 'UPDATE on_processorder_tbl SET status = :status WHERE activeOrder_id = :orderID';
                 $stmt = $conn->prepare($updateQuery);
                 $stmt->execute(['status' => $status, 'orderID' => $orderID]);
+            
+                // Update the notification_tbl
+                $updateNotifQuery = 'UPDATE notification_tbl SET notif_context = :notifContext WHERE pendingOrder_id = :orderID';
+                $stmt = $conn->prepare($updateNotifQuery);
+                $stmt->execute(['notifContext' => $status, 'orderID' => $orderID]);
             }
 
             $pdo->close();
@@ -114,5 +140,5 @@
             return ['success' => false, 'message' => 'Failed to update order status: ' . $e->getMessage()];
         }
     }
-    
+
 ?>

@@ -1,32 +1,31 @@
 <?php
-
+    
     include_once('includes/session.php');
 
-    if(isset($_GET['id']))
+	if(isset($_GET['id']))
     {
+        $conn = $pdo->open();
 		
-        $pdo_conn = $pdo->open();
-
-		try
+        try
         {
 			$sql = "DELETE FROM customer_tbl WHERE customer_id = '".$_GET['id']."'";
-			//if-else statement in executing our query
-			$_SESSION['message'] = ( $pdo_conn->exec($sql) ) ? 'Reservation deleted successfully' : 'Something went wrong. Cannot delete reservation';
+			
+            //if-else statement in executing our query
+			$_SESSION['message'] = ( $conn->exec($sql) ) ? 'Member deleted successfully' : 'Something went wrong. Cannot delete member';
 		}
-
-		catch(PDOException $e)
+		
+        catch(PDOException $e)
         {
 			$_SESSION['message'] = $e->getMessage();
 		}
 
 		//close connection
 		$pdo->close();
-
 	}
-	
-    else
+
+	else
     {
-		$_SESSION['message'] = 'Select reservation to delete first';
+		$_SESSION['message'] = 'Select member to delete first';
 	}
 
 	header('location: user_guest.php');

@@ -20,20 +20,45 @@
 
                     <!-- Customer Name -->
                     <div class="mb-3">
-                        <label for="customer" class="form-label">Guest Customer Name</label>
-                        <input type="text" class="form-control" name="guest_name" id="customer">
+                        <label for="customer_fname" class="form-label">First Name</label>
+                        <input type="text" class="form-control" name="guest_fname" id="customer_fname" oninput="capitalizeFirstLetter(this)">
                     </div>
 
-                    <!-- Customer Address -->
                     <div class="mb-3">
-                        <label for="address" class="form-label">Address</label>
-                        <textarea class="form-control" name="guest_address" id="address" rows="2"></textarea>
+                        <label for="customer_lname" class="form-label">Last Name</label>
+                        <input type="text" class="form-control" name="guest_lname" id="customer_lname" oninput="capitalizeFirstLetter(this)">
+                    </div>
+
+                    <!-- Customer User Name -->
+                    <div class="mb-3">
+                        <label for="customer_uname" class="form-label">Username</label>
+                        <input type="text" class="form-control" name="guest_uname" id="customer_uname" oninput="capitalizeFirstLetter(this)">
                     </div>
 
                     <!-- Customer Contact Number -->
                     <div class="mb-3">
                         <label for="contact" class="form-label">Contact Number</label>
                         <input type="number" class="form-control" name="guest_contact" id="contact">
+                    </div>
+
+                    <br><hr><br>
+
+                    <h5 class="text-center"><b> ADDRESS </b></h5><br>
+
+                    <!-- Customer Address -->
+                    <div class="mb-3">
+                        <label for="address_hn" class="form-label">House Number</label>
+                        <textarea class="form-control" name="guest_address_hn" id="address_hn" rows="1" oninput="capitalizeFirstLetter(this)"></textarea>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="address_st" class="form-label">Street</label>
+                        <textarea class="form-control" name="guest_address_st" id="address_st" rows="1" oninput="capitalizeFirstLetter(this)"></textarea>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="address_city" class="form-label">City</label>
+                        <textarea class="form-control" name="guest_address_city" id="address_city" rows="1" oninput="capitalizeFirstLetter(this)"></textarea>
                     </div>
 
             </div>
@@ -51,6 +76,15 @@
 
 </div>
 
+
+
+
+
+
+
+
+
+
 <!-- Edit -->
 <div class="modal fade" id="edit_<?php echo $row['customer_id']; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 
@@ -61,7 +95,7 @@
 
             <!-- Modal Edit Header -->
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel"> Edit Guest Customer </h1>
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Edit guest Customer Information</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
@@ -73,20 +107,44 @@
 
                     <!-- Customer Name -->
                     <div class="mb-3">
-                        <label class="form-label">Guest Customer Name</label>
-                        <input type="text" class="form-control" name="guest_name" value="<?php echo $row['customer_name']; ?>">
+                        <label class="form-label">Customer Name</label>
+                        <input type="text" class="form-control" name="rFName" value="<?php echo $row['customer_firstname']; ?>" oninput="capitalizeFirstLetter(this)">
                     </div>
 
-                    <!-- Customer Address -->
                     <div class="mb-3">
-                        <label class="form-label"> Address </label>
-                        <textarea class="form-control" name="guest_address" rows="2"> <?php echo $row['customer_address']; ?> </textarea>
+                        <label class="form-label">Customer Name</label>
+                        <input type="text" class="form-control" name="rLName" value="<?php echo $row['customer_lastname']; ?>" oninput="capitalizeFirstLetter(this)">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Customer Name</label>
+                        <input type="text" class="form-control" name="rUName" value="<?php echo $row['customer_username']; ?>" oninput="capitalizeFirstLetter(this)">
                     </div>
 
                     <!-- Customer Contact Number -->
                     <div class="mb-3">
                         <label class="form-label"> Contact Number</label>
-                        <input type="number" class="form-control" name="guest_contact" value="<?php echo $row['customer_contactNo']; ?>">
+                        <input type="number" class="form-control" name="rContact" value="<?php echo $row['customer_contactNo']; ?>">
+                    </div>
+
+                    <br><hr><br>
+
+                    <h5 class="text-center"><b> ADDRESS </b></h5><br>
+
+                    <!-- Customer Address -->
+                    <div class="mb-3">
+                        <label class="form-label"> House Number </label>
+                        <textarea class="form-control" name="rAddressHn" rows="1" oninput="capitalizeFirstLetter(this)"> <?php echo $row['customer_houseno']; ?> </textarea>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label"> Street </label>
+                        <textarea class="form-control" name="rAddressSt" rows="1" oninput="capitalizeFirstLetter(this)"> <?php echo $row['customer_street']; ?> </textarea>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label"> City </label>
+                        <textarea class="form-control" name="rAddressCity" rows="1" oninput="capitalizeFirstLetter(this)"> <?php echo $row['customer_city']; ?> </textarea>
                     </div>
 
             </div>
@@ -103,6 +161,15 @@
     </div>
 
 </div>
+
+
+
+
+
+
+
+
+
 
 <!-- Delete -->
 <div class="modal fade" id="delete_<?php echo $row['customer_id']; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -121,7 +188,7 @@
             <!-- Modal Delete Body -->
             <div class="modal-body">
                 <p class="text-center">Are you sure you want to Delete</p>
-                <h2 class="text-center"><?php echo $row['customer_name'] ?></h2>
+                <h2 class="text-center"><?php echo $row['customer_firstname'] . ' ' . $row['customer_lastname']; ?></h2>
             </div>
 
             <!-- Modal Delete Footer -->
@@ -146,4 +213,18 @@
 
     myModal.addEventListener('shown.bs.modal', () => { myInput.focus() })
     
+</script>
+
+<script>
+
+    function capitalizeFirstLetter(inputField)
+    {
+        var words = inputField.value.toLowerCase().split(" ");
+        for (var i = 0; i < words.length; i++)
+        {
+            words[i] = words[i].charAt(0).toUpperCase() + words[i].slice(1);
+        }
+        inputField.value = words.join(" ");
+    }
+
 </script>

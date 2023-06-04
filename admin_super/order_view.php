@@ -26,7 +26,9 @@
         if ($orderSummary)
         {
             // Display the customer name and order number outside the table
-            echo    '<div class="container py-5">';
+            echo    '<div class="container py-3">';
+
+            echo        '<a href="index.php" class="nav__link"> <i class="bx bx-arrow-back nav__icon"></i> Go back to Dashboard </a> <br>';
 
             echo        '<div class="container py-4" style="background-color: white;">';
             
@@ -86,18 +88,18 @@
 
 
                 // Display the total quantity and total amount outside the table
-                echo                '<p class="text-start"><b> Total Quantity: </b> ' . $totalQuantity . '</p>';
-                echo                '<p class="text-start"><b> Total Amount: </b>' . $totalAmount . '</p> <br>';
+                echo            '<p class="text-start"><b> Total Quantity: </b> ' . $totalQuantity . '</p>';
+                echo            '<p class="text-start"><b> Total Amount: </b>' . $totalAmount . '</p> <br>';
 
-                echo                '<div class="d-grid gap-2 d-md-flex justify-content-md-end">';
-                echo                    '<button class="btn btn-success" onclick="acceptAllOrders()">Accept All</button>';
-                echo                '</div> <br>';
-
-                echo            '</div>';
+                echo            '<div class="d-grid gap-2 d-md-flex justify-content-md-end">';
+                echo                '<button class="btn btn-success" onclick="acceptAllOrders()">Accept All</button>';
+                echo            '</div> <br>';
 
                 echo        '</div>';
 
                 echo    '</div>';
+
+                echo'</div>';
         } 
         else
         {
@@ -209,56 +211,62 @@
                     }
                 });
             }
-        
+            
             // Function to accept all orders
-            // Function to accept all orders
-function acceptAllOrders() {
-    Swal.fire({
-        title: 'Are you sure?',
-        text: 'You are about to accept all orders',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonText: 'Accept All',
-        cancelButtonText: 'Cancel',
-    }).then((result) => {
-        if (result.isConfirmed) {
-            // Make an AJAX request to orders_accept.php
-            fetch('orders_accept.php?order_number=<?php echo $orderNumber; ?>')
-                .then((response) => response.json())
-                .then((data) => {
-                    if (data.success) {
-                        // Display success notification
-                        Swal.fire({
-                            title: 'Orders Accepted',
-                            text: 'All orders have been accepted successfully',
-                            icon: 'success',
-                        }).then(() => {
-                            // Redirect to order_status.php
-                            window.location.href = 'order_status.php';
-                        });
-                    } else {
-                        // Display error notification
-                        Swal.fire({
-                            title: 'Error',
-                            text: data.message,
-                            icon: 'error',
+            function acceptAllOrders()
+            {
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: 'You are about to accept all orders',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Accept All',
+                    cancelButtonText: 'Cancel',
+                }).then((result) =>
+                {
+                    if (result.isConfirmed)
+                    {
+                        // Make an AJAX request to orders_accept.php
+                        fetch('orders_accept.php?order_number=<?php echo $orderNumber; ?>')
+                        .then((response) => response.json())
+                        .then((data) =>
+                        {
+                            if (data.success)
+                            {
+                                // Display success notification
+                                Swal.fire({
+                                    title: 'Orders Accepted',
+                                    text: 'All orders have been accepted successfully',
+                                    icon: 'success',
+                                })
+                                .then(() =>
+                                {
+                                    // Redirect to order_status.php
+                                    window.location.href = 'order_status.php';
+                                });
+                            }
+                            else
+                            {
+                                // Display error notification
+                                Swal.fire({
+                                    title: 'Error',
+                                    text: data.message,
+                                    icon: 'error',
+                                });
+                            }
+                        })
+                        .catch((error) =>
+                        {
+                            // Display error notification
+                            Swal.fire({
+                                title: 'Error',
+                                text: 'An error occurred while accepting the orders',
+                                icon: 'error',
+                            });
                         });
                     }
-                })
-                .catch((error) => {
-                    // Display error notification
-                    Swal.fire({
-                        title: 'Error',
-                        text: 'An error occurred while accepting the orders',
-                        icon: 'error',
-                    });
                 });
-        }
-    });
-}
-
-
-
+            }
 
         </script>
 

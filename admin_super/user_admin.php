@@ -1,9 +1,50 @@
 <?php include 'includes/session.php'; ?>
 
 <?php	
-	$stmt = $conn->prepare("SELECT * FROM admin_tbl ORDER BY admin_id DESC");
-	$stmt->execute();
-	$result = $stmt->fetchAll();
+
+    // Initialize the search query variable
+    $search_query = "";
+
+    // Check if the search form is submitted
+    if(isset($_GET['search']))
+    {
+        $search_query = $_GET['search'];
+
+        // Modify the SQL query to include the search condition
+        $stmt = $conn->prepare("SELECT * FROM admin_tbl WHERE
+                                (admin_id LIKE :search_query OR 
+                                admin_username LIKE :search_query OR 
+                                DATE(date_created) = :search_date OR 
+                                DATE(date_updated) = :search_date)
+                                ORDER BY admin_id DESC");
+
+        // Bind the search query parameter to the prepared statement
+        $stmt->bindValue(':search_query', '%' . $search_query . '%');
+
+        // Check if the search query is a valid date
+        if (strtotime($search_query) !== false)
+        {
+            // Convert the search query to a date format
+            $search_date = date('Y-m-d', strtotime($search_query));
+            $stmt->bindValue(':search_date', $search_date);
+        }
+        else
+        {
+            // If the search query is not a valid date, bind a null value
+            $stmt->bindValue(':search_date', null, PDO::PARAM_NULL);
+        }
+
+        $stmt->execute();
+        $result = $stmt->fetchAll();
+    }
+    else
+    {
+        // If the search form is not submitted, fetch all regular customers
+        $stmt = $conn->prepare("SELECT * FROM admin_tbl ORDER BY admin_id DESC");
+        $stmt->execute();
+        $result = $stmt->fetchAll();
+    }
+
 ?>
 
 <?php include 'includes/header.php'; ?>
@@ -21,17 +62,22 @@
                 <div class="container py-1">
 
                     <div class="row text-center">
-                
+
                         <div class="col-lg-12 mx-auto">
 
-                            <h1> Administrator </h1>
-                            <p class="text-muted lead"> Add, Edit and Delete of data of the Administrator </p>
+                            <h1> <b> Administrator </b> </h1>
+                            <p> Add, Edit and Delete of data of the Administrator </p>
 
                             <div id="wrap">
                                 
                                 <form action="" autocomplete="on">
-                                    <input id="search" name="search" type="text" placeholder="What're we looking for ?" value="<?php echo $search_query; ?>"><input id="search_submit" value="Rechercher" type="submit">
-                                </form>
+                                    <input id="search" name="search" type="text" placeholder="What're we looking for?" value="<?php echo $search_query; ?>">
+                                    <input id="search_submit" value="Search" type="submit">
+                                </form> <br><br><br>
+
+                                <?php if (!empty($search_query)) { ?>
+                                    <a href="user_admin.php" class="reset-search">Reset Search</a>
+                                <?php } ?>
 
                             </div>
 
@@ -40,17 +86,24 @@
                     </div>
 
                 </div>
-                
+
             </section> <!-- ------------------------------ End of Title and Search Bar ------------------------------ -->
 
 
 
 
 
+
+
+
+
+             
             <!-- ------------------------------ CONTENT SECTION ------------------------------ -->
             <section>
 
                 <div class="container">
+
+                    <a href="index.php" class="nav__link"> <i class='bx bx-arrow-back nav__icon'></i> Go back to Dashboard </a> <br>
 
                     <!-- Breadcrumbs and Tab Container -->
                     <div class="container-fluid" style="background-color: white;"> <br>
@@ -70,9 +123,9 @@
 
                             <nav>
                                 <ul>
-                                    <li><a href="user_regular.php" class="icon-shop"><span> Regular </span></a></li>
-                                    <li><a href="user_guest.php" class="icon-cup"><span> Guest </span></a></li>
-                                    <li class="tab-current"><a href="user_admin.php" class="icon-food"><span> Admin </span></a></li>
+                                    <li><a href="user_regular.php"><i class='bx bxs-user'></i><span> Regular </span></a></li>
+                                    <li class="tab-current"><a href="user_guest.php"><i class='bx bx-user' ></i><span> Guest </span></a></li>
+                                    <li class="tab-current"><a href="user_admin.php"><i class='bx bxs-user-account' ></i><span> Admin </span></a></li>
                                 </ul>
                             </nav> <br>
 
@@ -107,8 +160,7 @@
                                 <tbody>
                         
                                     <!-- Nalimot ko purpose pero para sa database to pang fetch ata ng data -->
-                                    <?php if (!empty($result)) {
-                                        foreach ($result as $row) { ?>
+                                    <?php if (!empty($result)) { foreach ($result as $row) { ?>
 
                                         <tr>
 
@@ -130,8 +182,7 @@
 
                                         </tr>
 
-                                        <?php }
-                                        } ?>
+                                        <?php } } ?>
                         
                                 </tbody> <!-- End of Table Body -->
                     
@@ -149,7 +200,6 @@
 
         <?php include 'includes/javascripts.php'; ?>
 
-        
     </body>
 
-    </html>
+</html>

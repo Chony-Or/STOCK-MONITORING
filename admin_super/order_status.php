@@ -66,6 +66,28 @@
 
 
 
+            <!-- ------------------------------ SALE HISTORY LINK SECTION ------------------------------ -->
+            <section class="py-4 section-1">
+
+                <div class="container py-1">
+
+                    <div class="col-lg-12 mx-auto">
+                            
+                        <!-- Sales History Link -->
+                        <a href="index.php" class="nav__link">
+                            <i class='bx bx-arrow-back nav__icon'></i> Go back to Dashboard
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </section> <!-- ------------------------------ SALE HISTORY LINK SECTION END ------------------------------ -->
+
+
+
+
+            
             <!-- ------------------------------ ORDER STATUS TABLE SECTION ------------------------------ -->
             <section>
 
@@ -142,7 +164,7 @@
                                             }
 
                                             echo    '<td data-label="Status"><span style="color:' . $color . ';">' . $status . '</span></td>';
-                                            echo    '<td data-label="Date Created">' . $row['date_created'] . '</td>';
+                                            echo    '<td data-label="Date Created">' . date('d F Y, h:i A', strtotime($row['date_created'])) . '</td>';
                                             echo    '<td data-label="Action">';
                                             echo        '<button class="btn btn-primary btn-sm" onclick="updateStatus(' . $row['activeOrder_id'] . ')">Update Status</button>';
                                             echo    '</td>';
@@ -168,6 +190,12 @@
 
 
 
+
+
+
+
+
+
             <!-- ------------------------------ SALE HISTORY LINK SECTION ------------------------------ -->
             <section class="py-4 section-1">
 
@@ -176,7 +204,7 @@
                     <div class="col-lg-12 mx-auto">
                             
                         <!-- Sales History Link -->
-                        <a href="sales_history.php" class="nav__link text-end">
+                        <a href="sales_history.php" class="nav__link justify-content-end">
                             <i class='bx bx-history nav__icon'></i> Go to Sales History
                         </a>
 

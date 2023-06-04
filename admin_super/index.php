@@ -45,7 +45,7 @@ if ($stmt = $conn->prepare('SELECT *, pendingorder_tbl.pendingOrder_id AS pendin
 
             </section> <br> <!-- ------------------------------ End of Title and Search Bar ------------------------------ -->
 
-            <p class="text-start"> <b> <?php echo date('l') . ' ' . date('d') . ', ' . date('Y'); ?> </b></p> <!-- DATE -->
+            <p class="text-start"><b><?php echo date('d F Y, l, h:i A'); ?></b></p> <!-- DATE -->
 
 
 
@@ -174,7 +174,7 @@ if ($stmt = $conn->prepare('SELECT *, pendingorder_tbl.pendingOrder_id AS pendin
 
                                                 <td data-label="Order No."><?php echo $row['order_number']; ?></td>
                                                 <td data-label="Name"><?php echo $row['customer_firstname'] . ' ' . $row['customer_lastname']; ?></td>
-                                                <td data-label="Time"><?php echo $row['date_created']; ?></td>
+                                                <td data-label="Date"> <?php echo date('d F Y, h:i A', strtotime($row['date_created'])); ?> </td>
                                                 <td data-label="View">
                                                     <a href="order_view.php?order_number=<?php echo $row['order_number']; ?>" class="btn btn-primary btn-sm">
                                                         <span><i class='bx bx-search-alt'></i></span>
@@ -216,7 +216,7 @@ if ($stmt = $conn->prepare('SELECT *, pendingorder_tbl.pendingOrder_id AS pendin
             <section>
 
                 <!-- Low Stock Preview -->
-                <span class="badge d-flex align-items-center p-1 pe-2 text-danger-emphasis bg-danger-subtle border border-danger-subtle rounded-pill" data-bs-toggle="modal" data-bs-target="#lowStockModal">
+                <span class="badge d-flex align-items-center p-1 pe-2 text-danger-emphasis bg-danger-subtle border border-danger-subtle" data-bs-toggle="modal" data-bs-target="#lowStockModal"  style="cursor: pointer;">
 
                     <img src="../images/Low Stock.png" class="rounded-circle me-1" width="45" height="45" alt="..."> Low Stock
                     

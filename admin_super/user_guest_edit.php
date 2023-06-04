@@ -1,38 +1,42 @@
 <?php
 
-include 'includes/session.php';
+	include 'includes/session.php';
 
-$conn = $pdo->open();
+	if(isset($_POST['edit']))
+    {
+	    $id = $_GET['id'];
+		$customer_fname = $_POST['rFName'];
+		$customer_lname = $_POST['rLName'];
+		$customer_uname = $_POST['rUName'];
+		$contact = $_POST['rContact'];
+    	$address_hn = $_POST['rAddressHn'];
+		$address_st = $_POST['rAddressSt'];
+		$address_city = $_POST['rAddressCity'];
 
-// Check if the contact id exists, for example update.php?id=1 will get the contact with the id of 1
-if (isset($_GET['id'])) {
-    if (!empty($_POST)) {
-        // This part is similar to the create.php, but instead we update a record and not insert
-        $guest_name = isset($_POST['guest_name']) ? $_POST['guest_name'] : '';
-        $guest_address = isset($_POST['guest_address']) ? $_POST['guest_address'] : '';
-        $guest_contact = isset($_POST['guest_contact']) ? $_POST['guest_contact'] : '';
+		$conn = $pdo->open();
+		$stmt = $conn->prepare("SELECT * FROM customer_tbl WHERE customer_id=:id");
+		$stmt->execute(['id'=>$id]);
+		$row = $stmt->fetch();
 
-        // Update the record
-        $stmt = $conn->prepare('UPDATE customer_tbl SET customer_name= ?, customer_address = ?, customer_contactNo = ? WHERE customer_id = ?');
-        $stmt->execute([$guest_name, $guest_address, $guest_contact, $_GET['id']]);
-        $msg = 'Updated Successfully!';
-    }
+		try
+        {
+			$stmt = $conn->prepare("UPDATE customer_tbl SET customer_firstname=:cfname, customer_lastname=:clname, customer_username=:cuname, customer_contactNo=:ccontact, customer_houseno=:caddresshn, customer_street=:caddressst, customer_city=:caddresscity WHERE customer_id=:id");
+			$stmt->execute(['cfname'=>$customer_fname, 'clname'=>$customer_lname, 'cuname'=>$customer_uname, 'ccontact'=>$contact, 'caddresshn'=>$address_hn, 'caddressst'=>$address_st, 'caddresscity'=>$address_city, 'id'=>$id]);
+			$_SESSION['success'] = 'User updated successfully';
+		}
+		catch(PDOException $e)
+        {
+			$_SESSION['error'] = $e->getMessage();
+		}
 
-    // Get the contact from the contacts table
-    $stmt = $conn->prepare('SELECT * FROM customer_tbl WHERE customer_id = ?');
-    $stmt->execute([$_GET['id']]);
-    $contact = $stmt->fetch(PDO::FETCH_ASSOC);
-    if (!$contact) {
-        exit('Customer doesn\'t exist with that ID!');
-    }
-    $pdo->close();
-}
+		$pdo->close();
+	}
 
-else
-{
-    $_SESSION['error'] = 'Fill up edit form first';
-}
+	else
+    {
+		$_SESSION['error'] = 'Fill up edit user form first';
+	}
 
-header('location: user_guest.php');
+	header('location: user_guest.php');
 
 ?>

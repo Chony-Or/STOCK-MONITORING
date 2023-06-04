@@ -102,6 +102,18 @@
 	content: "\e604";
 }
 
+.icon-regular:before {
+	content: "bx bx-user";
+}
+
+.icon-guest:before {
+	content: "\e604";
+}
+
+.icon-admin:before {
+	content: "\e604";
+}
+
 /* Content */
 .content section {
 	font-size: 1.25em;

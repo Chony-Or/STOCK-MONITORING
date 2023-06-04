@@ -6,18 +6,22 @@
 
     if (isset($_POST['add']))
     {
-        $customer = $_POST['regular_name'];
-        $address = $_POST['regular_address'];
+        $customer_fname = $_POST['regular_fname'];
+        $customer_lname = $_POST['regular_lname'];
+        $customer_uname = $_POST['regular_uname'];
         $contact = $_POST['regular_contact'];
+        $address_hn = $_POST['regular_address_hn'];
+        $address_st = $_POST['regular_address_st'];
+        $address_city = $_POST['regular_address_city'];
         $password = $_POST['regular_password'];
 
         try
         {
-            $stmt = $conn->prepare("SELECT customer_name FROM customer_tbl WHERE customer_name=:cname");
-            $stmt->execute(array(':cname' => $customer));
+            $stmt = $conn->prepare("SELECT customer_username FROM customer_tbl WHERE customer_username=:cuname");
+            $stmt->execute(array(':cuname' => $customer_uname));
             $row = $stmt->fetch();
 
-            if ($row["customer_name"] == $customer)
+            if ($row["customer_username"] == $customer_uname)
             {
                 $_SESSION['message'] = 'Sorry username already exists';
             }
@@ -26,15 +30,20 @@
             {
                 $new_password = password_hash($password, PASSWORD_DEFAULT); //encrypt password using password_hash()
 
-                $insert_stmt = $conn->prepare("INSERT INTO customer_tbl (customer_name, customerClass_id, customer_address, customer_contactNo, customer_password) VALUES (:cname, :ccategory, :caddress, :ccontact, :cpassword)"); //sql insert query					
+                $insert_stmt = $conn->prepare("INSERT INTO customer_tbl (customer_username, customer_firstname, customer_lastname, customerClass_id, customer_contactNo, customer_houseno, customer_street, customer_city, customer_password) 
+                                            VALUES (:cuname, :cfname, :clname, :ccategory, :ccontact, :caddresshn, :caddressst, :caddresscity, :cpassword)"); //sql insert query					
 
                 if(
                     $insert_stmt->execute(
                         array(
-                            ':cname' => $customer,
+                            ':cuname' => $customer_uname,
+                            ':cfname' => $customer_fname,
+                            ':clname' => $customer_lname,
                             ':ccategory' => 1,
-                            ':caddress' => $address,
                             ':ccontact' => $contact,
+                            ':caddresshn' => $address_hn,
+                            ':caddressst' => $address_st,
+                            ':caddresscity' => $address_city,
                             ':cpassword' => $new_password
                         )
                     )

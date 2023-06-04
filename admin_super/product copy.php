@@ -1,41 +1,16 @@
 <?php include 'includes/session.php'; ?>
 
 <?php
+
 $category = isset($_GET['category']) ? $_GET['category'] : '';
-$search_query = isset($_GET['search']) ? $_GET['search'] : '';
-
-// Prepare the base SQL query
-$sql = "SELECT * FROM product_tbl JOIN productclass_tbl ON product_tbl.productClass_id = productclass_tbl.productClass_id ORDER BY product_tbl.product_id DESC";
-
-// Prepare the search condition
-$searchCondition = '';
-$searchParams = [];
-
-if (!empty($search_query)) {
-    $searchCondition = " WHERE ";
-    $searchCondition .= "product_tbl.product_id LIKE CONCAT('%', :search_query, '%') OR ";
-    $searchCondition .= "productclass_tbl.productClass_id LIKE CONCAT('%', :search_query, '%') OR ";
-    $searchCondition .= "product_tbl.product_price LIKE CONCAT('%', :search_query, '%') OR ";
-    $searchCondition .= "product_tbl.product_name LIKE CONCAT('%', :search_query, '%') OR ";
-    $searchCondition .= "product_tbl.product_stock LIKE CONCAT('%', :search_query, '%') OR ";
-    $searchCondition .= "product_tbl.product_details LIKE CONCAT('%', :search_query, '%') OR ";
-    $searchCondition .= "product_tbl.product_code LIKE CONCAT('%', :search_query, '%') OR ";
-    $searchCondition .= "product_tbl.date_created LIKE CONCAT('%', :search_query, '%') OR ";
-    $searchCondition .= "product_tbl.date_updated LIKE CONCAT('%', :search_query, '%')";
-
-    // Add search query parameter
-    $searchParams = [':search_query' => $search_query];
-}
-
-// Prepare the final SQL query
-$stmt = $conn->prepare($sql . $searchCondition);
-$stmt->execute($searchParams);
+$stmt = $conn->prepare("SELECT * FROM product_tbl JOIN productclass_tbl ON product_tbl.productClass_id = productclass_tbl.productClass_id WHERE productclass_tbl.product_class LIKE CONCAT('%', ?, '%') ORDER BY product_tbl.product_id DESC ");
+$stmt->execute([$category]);
 $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-// Get the total number of products
-$total_products = $stmt->rowCount();
-?>
 
+// Get the total number of products
+$total_products = $conn->query('SELECT * FROM product_tbl')->rowCount();
+?>
 
 <?php include 'includes/header.php'; ?>
 <?php include 'includes/menubar.php'; ?>
@@ -97,7 +72,7 @@ $total_products = $stmt->rowCount();
                             </form> <br><br><br>
 
                             <?php if (!empty($search_query)) { ?>
-                                <a href="product.php" class="reset-search">Reset Search</a>
+                                <a href="user_regular.php" class="reset-search">Reset Search</a>
                             <?php } ?>
 
                         </div>
@@ -143,20 +118,13 @@ $total_products = $stmt->rowCount();
                             </div>
 
                         <?php endforeach; ?>
-                        <br><br>
 
-                        <button type="submit" class="btn btn-light">Filter</button>
+                        <button type="submit" class="btn btn-primary">Filter</button>
 
                         <?php if (isset($_GET['category'])) : ?>
-                            <a href="product.php" class="btn btn-light">Reset Filter</a>
+                            <a href="product.php" class="btn btn-secondary">Reset Filter</a>
                         <?php endif; ?>
                     </form> <br>
-
-                    <!-- Add Button -->
-                    <a href="#view_categories" class="create-contact" data-bs-toggle="modal"> View Product Categories </a>
-
-                    <!-- Include Modal php -->
-                    <?php include('product_categories.php'); ?>
 
                 </div>
 

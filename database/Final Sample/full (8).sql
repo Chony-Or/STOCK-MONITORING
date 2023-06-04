@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 01, 2023 at 12:34 PM
+-- Generation Time: Jun 04, 2023 at 06:37 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -132,18 +132,12 @@ INSERT INTO `holdorder_tbl` (`holdOrder_id`, `product_id`, `customer_id`, `produ
 CREATE TABLE `notification_tbl` (
   `notif_id` int(255) NOT NULL,
   `customer_id` int(11) NOT NULL,
+  `pendingOrder_id` int(255) NOT NULL,
+  `product_id` int(255) NOT NULL,
   `notif_subject` varchar(255) DEFAULT NULL,
   `notif_context` varchar(255) DEFAULT NULL,
   `notif_date` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `notification_tbl`
---
-
-INSERT INTO `notification_tbl` (`notif_id`, `customer_id`, `notif_subject`, `notif_context`, `notif_date`) VALUES
-(1, 1, 'YOUR ORDER IS BEING PROCESS', '1 box of coke and 5 box of red horse', '2023-04-15 20:17:47'),
-(2, 1, 'TEST SUBJECT', 'TEST CONTEXT', '2023-04-15 20:18:34');
 
 -- --------------------------------------------------------
 
@@ -360,7 +354,9 @@ ALTER TABLE `holdorder_tbl`
 -- Indexes for table `notification_tbl`
 --
 ALTER TABLE `notification_tbl`
-  ADD PRIMARY KEY (`notif_id`);
+  ADD PRIMARY KEY (`notif_id`),
+  ADD KEY `notification_product_id` (`product_id`),
+  ADD KEY `notification_pendingOrder_id` (`pendingOrder_id`);
 
 --
 -- Indexes for table `on_processorder_tbl`
@@ -433,7 +429,7 @@ ALTER TABLE `holdorder_tbl`
 -- AUTO_INCREMENT for table `notification_tbl`
 --
 ALTER TABLE `notification_tbl`
-  MODIFY `notif_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `notif_id` int(255) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `on_processorder_tbl`
