@@ -1,0 +1,6 @@
+INSERT INTO `customer_tbl` (`customer_id`, `customer_firstname`, `customer_lastname`, `customer_contactNo`, `customer_houseno`, `customer_street`, `customer_city`, `customer_username`, `customer_password`, `customerClass_id`, `date_created`, `date_updated`, `is_active`) VALUES
+(1, 'Rose', 'Gumanid', '09062481779', 'Blk 110 lot 17', 'M.H Delpilar St. Rizal', 'Taguig City', 'rose', 'rose', 1, '2022-11-18 00:00:00', NULL, 1);
+
+INSERT INTO `pendingorder_tbl` (`pendingOrder_id`, `product_id`, `product_name`, `order_number`, `customer_id`, `quantity`, `amount`, `date_created`, `is_active`) VALUES
+(1, 33, 'San Miguel Apple', 136254889, 1, 6, 720, '2023-04-06 15:22:31', 1),
+(2, 26, 'Red Horse Big', 136254889, 1, 4, 550, '2023-04-06 15:22:32', 1);

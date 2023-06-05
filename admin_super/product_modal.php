@@ -1,88 +1,114 @@
 <?php
 
-// Connect to database
-$dsn = "mysql:host=localhost;dbname=la_bvrgs;charset=utf8";
-$username = "root";
-$password = "";
-$options = [
-    PDO::ATTR_EMULATE_PREPARES => false,
-    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
-];
+    $conn = $pdo->open();
 
-try {
-    $pdo = new PDO($dsn, $username, $password, $options);
-} catch (PDOException $e) {
-    die("Database connection failed: " . $e->getMessage());
-}
+    // Get all the categories from category table
+    $sql = "SELECT * FROM `productclass_tbl`";
+    $stmt = $conn->query($sql);
+    $all_categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-// Get all the categories from category table
-$sql = "SELECT * FROM `productclass_tbl`";
-$stmt = $pdo->query($sql);
-$all_categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $conn = null; // Close the database connection
 
 ?>
 
 <!-- Add Products -->
 <div class="modal fade" id="add_product" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
     <div class="modal-dialog">
+
+        <!-- Modal Add Content -->
         <div class="modal-content">
+            
+            <!-- Modal Add Header -->
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Add Product</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
+
+             <!-- Modal Add Body -->
             <div class="modal-body">
+
+                <!-- Add Form -->
                 <form method="POST" action="product_add.php" enctype="multipart/form-data">
+
+                    <!-- Product Image -->
                     <div class="mb-3">
                         <label for="image" class="form-label">Choose Image</label>
                         <input class="form-control" type="file" name="image" id="image">
                     </div>
+
+                    <!-- Product Name -->
                     <div class="mb-3">
                         <label for="title" class="form-label">Product Name</label>
                         <input type="text" class="form-control" name="name" id="title">
                     </div>
+
+                    <!-- Product Code -->
                     <div class="mb-3">
                         <label for="code" class="form-label">Product Code</label>
                         <input type="text" class="form-control" name="code" id="code">
                     </div>
+
+                    <!-- Product Price -->
                     <div class="mb-3">
                         <label for="price" class="form-label">Price</label>
                         <input type="text" class="form-control" name="price" id="price">
                     </div>
+
+                    <!-- Product Stock -->
                     <div class="mb-3">
                         <label for="stock" class="form-label">Stock</label>
                         <input type="text" class="form-control" name="stock" id="stock">
                     </div>
+                    
+                    <!-- Product Category -->
                     <div class="mb-3">
                         <label for="category" class="form-label">Category</label>
                         <select class="form-select" name="category" id="category">
                             <?php foreach ($all_categories as $row) : ?>
-                                <option value="<?php echo $row["productClass_id"]; ?>">
-                                    <?php echo $row["product_class"]; ?>
+                                <option value="<?= $row['productClass_id'] ?>">
+                                    <?= $row['product_class'] ?>
                                 </option>
                             <?php endforeach; ?>
                         </select>
                     </div>
             </div>
+
+            <!-- Modal Add Footer -->
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 <button type="submit" class="btn btn-primary" name="Submit">Save changes</button>
                 </form>
             </div>
+            
         </div>
+        
     </div>
+
 </div>
 
 
 <!-- Edit Products -->
 <div class="modal fade" id="edit_<?= $product['product_id'] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    
     <div class="modal-dialog">
+        
+        <!-- Modal Edit Content -->
         <div class="modal-content">
+            
+            <!-- Modal Edit Header -->
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Edit Product</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
+
+            <!-- Modal Edit Body -->
             <div class="modal-body">
+
+                <!-- Modal Edit Form -->
                 <form method="POST" action="product_edit.php" enctype="multipart/form-data">
+
+                    <!-- Product Image -->
                     <div class="mb-3">
                         <label for="image" class="form-label">Choose Image</label>
                         <div class="col-md-4">
@@ -90,22 +116,32 @@ $all_categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         </div>
                         <input class="form-control" type="file" name="image" value="">
                     </div>
+
+                    <!-- Product Name -->
                     <div class="mb-3">
                         <label for="title" class="form-label">Product Name</label>
                         <input type="text" class="form-control" name="product_name" value="<?= $product['product_name']; ?>">
                     </div>
+
+                    <!-- Product Code -->
                     <div class="mb-3">
                         <label for="code" class="form-label">Product Code</label>
                         <input type="text" class="form-control" name="product_code" value="<?= $product['product_code']; ?>">
                     </div>
+
+                    <!-- Product Price -->
                     <div class="mb-3">
                         <label for="price" class="form-label">Price</label>
                         <input type="text" class="form-control" name="product_price" value="<?= $product['product_price']; ?>">
                     </div>
+
+                    <!-- Product Stock -->
                     <div class="mb-3">
                         <label for="stock" class="form-label">Stock</label>
                         <input type="text" class="form-control" name="product_stock" value="<?= $product['product_stock']; ?>">
                     </div>
+
+                    <!-- Product Category -->
                     <div class="mb-3">
                         <label for="category" class="form-label">Category</label>
                         <select class="form-select" name="category" value="<?= $product['productClass_id']; ?>">
@@ -116,15 +152,21 @@ $all_categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
                             <?php endforeach; ?>
                         </select>
                     </div>
+
                     <input type="hidden" name="product_id" value="<?= $product['product_id']; ?>">
             </div>
+
+            <!-- Modal Edit Footer -->
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 <button type="submit" class="btn btn-primary" name="Submit">Save changes</button>
                 </form>
             </div>
+
         </div>
+
     </div>
+
 </div>
 
 
@@ -166,7 +208,7 @@ $all_categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
     const myModal = document.getElementById('myModal')
     const myInput = document.getElementById('myInput')
 
-    myModal.addEventListener('shown.bs.modal', () => {
+    myModal.addEventListener('shown.bs.modal', () =>{
         myInput.focus()
     })
 </script>
