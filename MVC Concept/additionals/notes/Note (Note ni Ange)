@@ -1,0 +1,113 @@
+FIX DATA BASE
+REMOVE CUSTOMERID 2 THE PASSWORD COLUMN
+RE DL THE PRODUCT_TBL
+
+
+DASHBOARD
+CHART (RED FOR CRITICAL STOCK, BLUE FOR NOT CRITICAL STOCK)
+NOTIFICATION
+VIEW ORDER AND THEN ACCEPT AND DECLINE (WITH PAGINATION)
+
+USER
+PAGINATION AND SEARCH
+
+ORDER STATUS
+NOT WORKING YET
+
+SALES HISTORY
+NOT WORKING YET
+
+INVENTORY
+CATEGORY - ADD, EDIT AND DELETE
+SEARCH BAR
+PAGINATION
+FIX PRODUCT INFORMATION KULANG PA
+
+
+
+
+ALTER TABLE on_processorder_tbl
+ADD COLUMN status VARCHAR(20) NOT NULL DEFAULT 'ongoing';
+
+
+
+ALTER TABLE transachistory_tbl
+ADD COLUMN status VARCHAR(50) AFTER date_created;
+
+CREATE TABLE `transachistory_tbl` (
+  `transac_id` int(255) NOT NULL,
+  `customer_id` int(255) NOT NULL,
+  `product_id` int(255) NOT NULL,
+  `activeOrder_id` int(255) NOT NULL,
+  `quantity` int(255) NOT NULL,
+  `amount` double(255,3) NOT NULL,
+  `status` varchar(50) DEFAULT NULL,
+  `date_created` datetime NOT NULL DEFAULT current_timestamp(),
+  `date_deleted` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+ALTER TABLE `transachistory_tbl`
+  ADD PRIMARY KEY (`transac_id`),
+  ADD KEY `transac_customer_id` (`customer_id`),
+  ADD KEY `transac_product_id` (`product_id`);
+  ADD KEY `transac_activeOrder_id` (`activeOrder_id`);
+
+ALTER TABLE `transachistory_tbl`
+  MODIFY `transac_id` int(255) NOT NULL AUTO_INCREMENT;
+
+
+ALTER TABLE `transachistory_tbl`
+  ADD CONSTRAINT `transac_customer_id` FOREIGN KEY (`customer_id`) REFERENCES `customer_tbl` (`customer_id`);
+COMMIT;
+
+can you help me, once you select the received in update status button the data in on_processorder_tbl will be removed and moved into the transachistory_tbl
+
+can you help me, once you select the cancelled in update status button the data in on_processorder_tbl will be removed and moved into the transachistory_tbl and set the status in trancsachistory_tbl into Cancelled.
+
+pendingOrder_id, product_id, product_name, order_number, customer_id, quantity, amount, date
+activeOrder_id, product_id, customer_id, pendingOrder_id, quantity, amount, date, status
+transac_id, customer_id, product_id, activeOrder_id, quantity, amount, date, status
+
+
+
+
+
+
+
+<?php include 'includes/session.php'; ?>
+
+<?php
+$category = isset($_GET['category']) ? $_GET['category'] : '';
+$search_query = isset($_GET['search']) ? $_GET['search'] : '';
+
+// Prepare the base SQL query
+$sql = "SELECT * FROM product_tbl JOIN productclass_tbl ON product_tbl.productClass_id = productclass_tbl.productClass_id ORDER BY product_tbl.product_id DESC";
+
+// Prepare the search condition
+$searchCondition = '';
+$searchParams = [];
+
+if (!empty($search_query)) {
+    $searchCondition = " WHERE ";
+    $searchCondition .= "product_tbl.product_id LIKE CONCAT('%', :search_query, '%') OR ";
+    $searchCondition .= "productclass_tbl.productClass_id LIKE CONCAT('%', :search_query, '%') OR ";
+    $searchCondition .= "product_tbl.product_price LIKE CONCAT('%', :search_query, '%') OR ";
+    $searchCondition .= "product_tbl.product_name LIKE CONCAT('%', :search_query, '%') OR ";
+    $searchCondition .= "product_tbl.product_stock LIKE CONCAT('%', :search_query, '%') OR ";
+    $searchCondition .= "product_tbl.product_details LIKE CONCAT('%', :search_query, '%') OR ";
+    $searchCondition .= "product_tbl.product_code LIKE CONCAT('%', :search_query, '%') OR ";
+    $searchCondition .= "product_tbl.date_created LIKE CONCAT('%', :search_query, '%') OR ";
+    $searchCondition .= "product_tbl.date_updated LIKE CONCAT('%', :search_query, '%')";
+
+    // Add search query parameter
+    $searchParams = [':search_query' => $search_query];
+}
+
+// Prepare the final SQL query
+$stmt = $conn->prepare($sql . $searchCondition);
+$stmt->execute($searchParams);
+$products = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+// Get the total number of products
+$total_products = $stmt->rowCount();
+?>

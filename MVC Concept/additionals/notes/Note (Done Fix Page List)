@@ -1,0 +1,79 @@
+DONE PAGES LIST
+
+NOTE COPY THE FILTERING FUNCTION OF THE sales_history TO THE user_regular, user_admin and user_guest
+
+index.php
+login.php
+logout.php
+verify.php
+
+Includes Folder:
+connection.php
+session.php
+
+SUPER ADMIN FOLDER:
+index.php
+index_fetch_chart_data.php
+order_view.php (adjust) /
+order_accept.php (adjust) /
+order_remove.php (adjust) /
+order_status.php (adjust) /
+order_update.php (adjust) /
+sales_history.php
+user_regular.php (adjust) /
+user_regular_modal.php (adjust) /
+user_regular_edit.php (adjust) /
+user_regular_delete.php (adjust) /
+user_regular_add.php (adjust) /
+user_guest.php (adjust) /
+user_guest_modal.php (adjust) /
+user_guest_edit.php (adjust) /
+user_guest_delete.php (adjust) /
+user_guest_add.php (adjust) /
+user_admin.php (adjust) /
+user_admin_modal.php (adjust) /
+user_admin_edit.php (adjust) /
+user_admin_delete.php (adjust) /
+user_admin_add.php (adjust) /
+product.php
+product_modal.php
+product_info.php
+product_edit.php
+product_delete.php
+product_add.php
+category.php
+category_modal.php
+category_fetch.php
+category_edit.php
+category_delete.php
+category_add.php
+
+
+
+
+
+SUPER ADMIN FOLDER:
+index.php
+index_fetch_chart_data.php
+order_view.php (adjust) /
+order_accept.php (adjust) /
+order_remove.php (adjust) /
+order_status.php (adjust) /
+order_update.php (adjust) /
+sales_history.php
+user_regular.php (adjust) /
+user_regular_modal.php (adjust) /
+user_regular_edit.php (adjust) /
+user_regular_delete.php (adjust) /
+user_regular_add.php (adjust) /
+user_guest.php (adjust) /
+user_guest_modal.php (adjust) /
+user_guest_edit.php (adjust) /
+user_guest_delete.php (adjust) /
+user_guest_add.php (adjust) /
+product.php
+product_modal.php
+product_info.php
+product_edit.php
+product_delete.php
+product_add.php
